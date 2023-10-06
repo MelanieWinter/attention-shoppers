@@ -17,7 +17,7 @@ Sam is having a dinner party tonight with some friends, but he forgot the grocer
   - These might be organized by department (i.e. Dairy, Meat, Dry Goods, Produce, etc.)
 - Recipes which will constitute what Sam needs to collect from the grocery store
 - Render Sam, who moves through the aisles using WASD
-- To collect a food item, Sam will bump into the object
+- Bump into an object to collect the food item
 - The food item will disappear when interacted with
 - Food items not in the recipes will be blocked from interaction
 - Recipes will have a tally, so the player knows how many ingredients have been collected, and how many more are still needed
@@ -37,16 +37,23 @@ Sam is having a dinner party tonight with some friends, but he forgot the grocer
 - As levels get higher, more recipes will spawn at a time
 - Add grocery store, Muzak type, music which can be switched on and off with the 'm' key
 - Accidentally grabbing the wrong food will remove 3 seconds from the timer
-- A starting screen which shows an image of the Grocery Depot employee (looking exhausted) making the 'attention shoppers' announcement
+- A starting screen, which shows an image of the Grocery Depot employee (looking exhausted), making the 'attention shoppers' announcement
 - A 'Finished Level' screen, which shows an image of Sam checking out at the cashier, and a 'Next Level' button
 - A 'Failed Level' screen, which shows an image of the grocery store with a closed sign, and a 'Play Again' button
 - Have the coundown timer start as green; then turn red and flash at 10 seconds left
 
+## Super Stretch Goals
+
+- Randomly generate environmental hazards _(ex. "Attention shoppers, there is a spill on aisle 3.")_
+  - Sam will get hurt and lose time from the clock if he walks into the hazards
+- A worker will patrol the store
+  - If Sam runs into him, he will immediately get ushered out, and the level will be failed
+
 ## Tech Stack
 
 - HTML 5
-- Canvas
-- CSS
+- HTML Canvas Markdown
+- CSS 3
 - Vanilla JavaScript
 
 ## Potential Roadblocks
