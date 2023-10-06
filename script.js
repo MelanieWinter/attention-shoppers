@@ -140,27 +140,76 @@ map.forEach((row, i) => {
     })
 });
 
+function circleCollidesWithRectangle({
+    circle,
+    rectangle,
+}) {
+    return (circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height &&
+            circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x &&
+            circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y &&
+            circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
+}
+
+// function animate() {
+//     requestAnimationFrame(animate);
+//     c.clearRect(0, 0, canvas.width, canvas.height);
+
+//     boundaries.forEach((boundary) => {
+//         boundary.draw();
+//         if (sam.position.y - sam.radius + sam.velocity.y <= boundary.position.y + boundary.height &&
+//             sam.position.y + sam.radius + sam.velocity.y >= boundary.position.y &&
+//             sam.position.x + sam.radius + sam.velocity.x >= boundary.position.x &&
+//             sam.position.x - sam.radius + sam.velocity.x <= boundary.position.x + boundary.width) {
+//             sam.velocity.x = 0;
+//             sam.velocity.y = 0;
+//         };
+//     });
+
+
+
+//     food.forEach((foodItem) => {
+//         food.draw();
+//         if circleCollidesWithRectangle({
+//             circle: sam,
+//             rectangle: foodItem,
+//         })
+//         console.log('touching')
+//     });
+
+//     sam.update();
+// };
+
+// animate();
+
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
 
     boundaries.forEach((boundary) => {
         boundary.draw();
-        if (sam.position.y - sam.radius + sam.velocity.y <= boundary.position.y + boundary.height &&
-            sam.position.y + sam.radius + sam.velocity.y >= boundary.position.y &&
-            sam.position.x + sam.radius + sam.velocity.x >= boundary.position.x &&
-            sam.position.x - sam.radius + sam.velocity.x <= boundary.position.x + boundary.width) {
+        if (circleCollidesWithRectangle({
+            circle: sam,
+            rectangle: boundary,
+        })) {
             sam.velocity.x = 0;
             sam.velocity.y = 0;
-        };
+        }
     });
 
-    food.forEach((food) => {
-        food.draw();
+    food.forEach((foodItem, i) => {
+        foodItem.draw();
+        // Check for collisions between the player and food
+        if (circleCollidesWithRectangle({
+            circle: sam,
+            rectangle: foodItem,
+        })) {
+            console.log('touching food');
+            food.splice(i, 1)
+        }
     });
 
     sam.update();
-};
+}
 
 animate();
 
