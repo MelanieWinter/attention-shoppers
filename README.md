@@ -1,6 +1,6 @@
 # Attention Shoppers
 
-_ANNOUNCER: "Good evening Grocery Depot guests, our registers will be closing shortly. Please make your final selections and bring your items to the registers located at the front of the store. We would like to remind you that our shopping hours tomorrow are from 7am to 7pm. Thank you for shopping at Grocery Depot and have a nice evening."_
+_ANNOUNCER: "Attention Grocery Depot shoppers, our registers will be closing shortly. Please make your final selections and bring your items to the registers located at the front of the store. We would like to remind you that our shopping hours tomorrow are from 7am to 7pm. Thank you for shopping at Grocery Depot and have a nice evening."_
 
 ## Whats Going On Here?
 
