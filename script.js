@@ -196,7 +196,8 @@ function animate() {
         }
     });
 
-    food.forEach((foodItem, i) => {
+    for (let i = food.length - 1; 0 < i; i--) {
+        const foodItem = food[i]
         foodItem.draw();
         // Check for collisions between the player and food
         if (circleCollidesWithRectangle({
@@ -206,7 +207,19 @@ function animate() {
             console.log('touching food');
             food.splice(i, 1)
         }
-    });
+    }
+
+    // food.forEach((foodItem, i) => {
+    //     foodItem.draw();
+    //     // Check for collisions between the player and food
+    //     if (circleCollidesWithRectangle({
+    //         circle: sam,
+    //         rectangle: foodItem,
+    //     })) {
+    //         console.log('touching food');
+    //         food.splice(i, 1)
+    //     }
+    // });
 
     sam.update();
 }
