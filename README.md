@@ -55,6 +55,7 @@ Sam is having a dinner party tonight with some friends, but he forgot the grocer
   - Sam will get hurt and lose time from the clock if he walks into the hazards
 - A worker will patrol the store
   - If Sam runs into him, he will immediately get ushered out, and the level will be failed
+  - Food items will disappear when interacted with, then respawn after 5 seconds.
 
 ## Potential Roadblocks
 
