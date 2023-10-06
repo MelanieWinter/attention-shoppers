@@ -6,6 +6,13 @@ _ANNOUNCER: "Attention Grocery Depot shoppers, our registers will be closing sho
 
 Sam is having a dinner party tonight with some friends, but he forgot the grocery store is only open till 7! Help Sam find all the groceries on his list before getting kicked out.
 
+## Tech Stack
+
+- HTML 5
+- HTML Canvas Markdown
+- CSS 3
+- Vanilla JavaScript
+
 ## Wireframe
 
 ![Imgur](https://i.imgur.com/FK1dmyP.png)
@@ -48,13 +55,6 @@ Sam is having a dinner party tonight with some friends, but he forgot the grocer
   - Sam will get hurt and lose time from the clock if he walks into the hazards
 - A worker will patrol the store
   - If Sam runs into him, he will immediately get ushered out, and the level will be failed
-
-## Tech Stack
-
-- HTML 5
-- HTML Canvas Markdown
-- CSS 3
-- Vanilla JavaScript
 
 ## Potential Roadblocks
 
