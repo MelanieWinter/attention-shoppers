@@ -42,8 +42,8 @@ class Player {
         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
         c.fillStyle = 'rgb(238, 206, 179)';
         c.fill();
-        // c.strokeStyle = 'rgb(148, 101, 54)';
-        // c.stroke();
+        c.strokeStyle = 'rgb(148, 101, 54)';
+        c.stroke();
         c.closePath();
     };
 
@@ -103,6 +103,15 @@ function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     boundaries.forEach((boundary) => {
         boundary.draw();
+
+        if (sam.position.y - sam.radius + sam.velocity.y <= boundary.position.y + boundary.height &&
+            sam.position.y + sam.radius + sam.velocity.y >= boundary.position.y &&
+            sam.position.x + sam.radius + sam.velocity.x >= boundary.position.x &&
+            sam.position.x - sam.radius + sam.velocity.x <= boundary.position.x + boundary.width) {
+            console.log('we are colliding with a boundary');
+            sam.velocity.x = 0;
+            sam.velocity.y = 0;
+        };
     });
     sam.update();
 };
