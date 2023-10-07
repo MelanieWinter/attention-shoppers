@@ -294,13 +294,13 @@ function animate() {
         const foodItem = food[i]
         foodItem.draw();
         // Check for collisions between the player and food
-        if (circleCollidesWithRectangle({
-            circle: sam,
-            rectangle: foodItem,
-        })) {
-            console.log('touching food');
-            food.splice(i, 1)
-        }
+        // if (circleCollidesWithRectangle({
+        //     circle: sam,
+        //     rectangle: foodItem,
+        // })) {
+        //     console.log('touching food');
+        //     food.splice(i, 1)
+        // }
     }
 
     sam.update();
@@ -339,7 +339,20 @@ window.addEventListener('keyup', ({ key }) => {
             break;
         case 'd':
             sam.velocity.x = 0;
-            break;        
+            break;  
+        case 'e':
+            for (let i = 0; i < food.length; i++) {
+                const foodItem = food[i];
+                if (circleCollidesWithRectangle({
+                    circle: sam,
+                    rectangle: foodItem,
+                })) {
+                    console.log('touching food');
+                    food.splice(i, 1);
+                    i--;  // Decrement i to properly check the next item
+                }
+            }
+            break;
     }
 });
 
