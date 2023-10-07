@@ -96,17 +96,22 @@ const sam = new Player({
 });
 
 const map = [
-    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
-    ['l', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
-    ['l', '@', ' ', ' ', 'n', 'k', ' ', 'n', 'k', ' ', 'n', 'k', ' ', 'n', 'k', ' ', 'n', 'k', ' ', 'r'],
-    ['l', '@', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', ' ', 'r'],
-    ['l', '@', ' ', ' ', '|', 'c', ' ', '|', 'c', ' ', '|', 'c', ' ', '|', 'c', ' ', '|', 'c', ' ', 'r'],
-    ['l', ' ', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', ' ', 'r'],
-    ['l', '@', ' ', ' ', '|', 'k', ' ', '|', 'k', ' ', '|', 'k', ' ', '|', 'k', ' ', '|', 'k', ' ', 'r'],
-    ['l', '@', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', ' ', 'r'],
-    ['l', '@', ' ', ' ', 'u', 'c', ' ', 'u', 'c', ' ', 'u', 'c', ' ', 'u', 'c', ' ', 'u', 'c', ' ', 'r'],
-    ['l', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
-    ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
+    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', 'm', ' ', 'm', ' ', 'm', ' ', 'm', ' ', ' ', 'm', ' ', 'm', ' ', 'm', ' ', 'm', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', 'c', ' ', 'c', ' ', 'c', ' ', ' ', ' ', ' ', 'c', ' ', 'c', ' ', 'c', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', 't', ' ', 't', ' ', 't', ' ', 't', ' ', ' ', 't', ' ', 't', ' ', 't', ' ', 't', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'u', '+', '+', '+', '+', '+', 'n', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
 ];
 
 function createImage(src) {
@@ -162,17 +167,7 @@ map.forEach((row, i) => {
                     })
                 )
                 break;
-            case '|':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelf.png'),
-                    })
-                )
-                break;
+
             case '1':
                 boundaries.push(
                     new Boundary({
@@ -217,6 +212,17 @@ map.forEach((row, i) => {
                     })
                 )
                 break;
+            case '+':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/woodShelfHorizontal.png'),
+                    })
+                )
+                break;
             case 'u':
                 boundaries.push(
                     new Boundary({
@@ -224,7 +230,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i,
                         },
-                        image: createImage('./img/woodShelfBottom.png'),
+                        image: createImage('./img/woodShelfHorizontalLeft.png'),
                     })
                 )
                 break;
@@ -235,7 +241,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i,
                         },
-                        image: createImage('./img/woodShelfTop.png'),
+                        image: createImage('./img/woodShelfHorizontalRIght.png'),
                     })
                 )
                 break;
@@ -254,19 +260,19 @@ map.forEach((row, i) => {
                 food.push(
                     new Food({
                         position: {
-                            x: Boundary.width * j + 36.5,
-                            y: Boundary.height * i,
+                            x: Boundary.width * j,
+                            y: Boundary.height * i + 32,
                         },
                         image: createImage('./img/tomato.png'),
                     })
                 )
                 break;
-            case 'k':
+            case 'm':
                 food.push(
                     new Food({
                         position: {
-                            x: Boundary.width * j - 36.5,
-                            y: Boundary.height * i,
+                            x: Boundary.width * j,
+                            y: Boundary.height * i + 32,
                         },
                         image: createImage('./img/milk.png'),
                     })
@@ -276,8 +282,8 @@ map.forEach((row, i) => {
                 food.push(
                     new Food({
                         position: {
-                            x: Boundary.width * j - 36.5,
-                            y: Boundary.height * i,
+                            x: Boundary.width * j,
+                            y: Boundary.height * i - 37,
                         },
                         image: createImage('./img/cheese.png'),
                     })
