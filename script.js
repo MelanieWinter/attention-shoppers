@@ -57,20 +57,22 @@ class Player {
 };
 
 class Food {
-    constructor({ position }) {
+    constructor({ position, image }) {
         this.position = position;
-        this.width = 7;
-        this.height = 20;
+        this.width = 40;
+        this.height = 40;
+        this.image = image;
     };
 
     draw() {
-        c.beginPath();
-        c.fillStyle = 'rgb(218, 22, 37)';
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
-        c.fill();
-        // c.strokeStyle = 'rgb(115, 19, 29)';
-        // c.stroke();
-        c.closePath();
+        // c.beginPath();
+        // c.fillStyle = 'rgb(218, 22, 37)';
+        // c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        // c.fill();
+        // // c.strokeStyle = 'rgb(115, 19, 29)';
+        // // c.stroke();
+        // c.closePath();
+        c.drawImage(this.image, this.position.x, this.position.y);
     };
 
     update() {
@@ -96,12 +98,12 @@ const sam = new Player({
 const map = [
     ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
     ['l', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
-    ['l', '@', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'r'],
+    ['l', '@', ' ', ' ', 'n', '.', ' ', 'n', '.', ' ', 'n', '.', ' ', 'n', '.', ' ', 'n', '.', ' ', 'r'],
+    ['l', '@', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', ' ', 'r'],
     ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', ' ', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', ' ', 'r'],
     ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
-    ['l', ' ', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
-    ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
-    ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', '@', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', 't', '|', ' ', ' ', 'r'],
     ['l', '@', ' ', ' ', 'u', '.', ' ', 'u', '.', ' ', 'u', '.', ' ', 'u', '.', ' ', 'u', '.', ' ', 'r'],
     ['l', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
     ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
@@ -241,10 +243,21 @@ map.forEach((row, i) => {
                 food.push(
                     new Food({
                         position: {
-                            x: Boundary.width * j + 1,
+                            x: Boundary.width * j - 36.5,
                             y: Boundary.height * i,
                         },
-                        // image: image
+                        image: createImage('./img/tomato.png'),
+                    })
+                )
+                break;
+            case 't':
+                food.push(
+                    new Food({
+                        position: {
+                            x: Boundary.width * j + 36.5,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/tomato.png'),
                     })
                 )
                 break;
