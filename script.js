@@ -26,9 +26,9 @@ class Boundary {
     };
 
     draw() {
-        c.fillStyle = 'rgb(59, 90, 175)';
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
-        // c.drawImage(this.image, this.position.x, this.position.y);
+        // c.fillStyle = 'rgb(59, 90, 175)';
+        // c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        c.drawImage(this.image, this.position.x, this.position.y);
     }
 };
 
@@ -84,8 +84,8 @@ const food = [];
 const boundaries = [];
 const sam = new Player({
     position: {
-        x: Boundary.width + Boundary.width,
-        y: Boundary.height + Boundary.height,
+        x: Boundary.width + Boundary.width * 2,
+        y: Boundary.height + Boundary.height * 4.5,
     },
     velocity: {
         x: 0,
@@ -94,22 +94,24 @@ const sam = new Player({
 });
 
 const map = [
-    ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-    ['-', ' ', ' ', '-', ' ', ' ', ' ', ' ', ' ', '-', ' ', ' ', ' ', ' ', ' ', '-', ' ', ' ', '-'],
-    ['-', '@', ' ', '-', '.', ' ', ' ', ' ', ' ', '-', '.', ' ', ' ', ' ', ' ', '-', '.', ' ', '-'],
-    ['-', '@', ' ', '-', '.', ' ', '-', ' ', ' ', '-', '.', ' ', '-', ' ', ' ', '-', '.', ' ', '-'],
-    ['-', '@', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-'],
-    ['-', ' ', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-'],
-    ['-', '@', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-'],
-    ['-', '@', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-', '.', ' ', '-'],
-    ['-', '@', ' ', ' ', ' ', ' ', '-', '.', ' ', ' ', ' ', ' ', '-', '.', ' ', ' ', ' ', ' ', '-'],
-    ['-', ' ', ' ', ' ', ' ', ' ', '-', '.', ' ', ' ', ' ', ' ', '-', '.', ' ', ' ', ' ', ' ', '-'],
-    ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
+    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
+    ['l', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['l', '@', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'n', ' ', ' ', 'r'],
+    ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', ' ', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', '@', ' ', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', '|', '.', ' ', 'r'],
+    ['l', '@', ' ', ' ', 'u', '.', ' ', 'u', '.', ' ', 'u', '.', ' ', 'u', '.', ' ', 'u', '.', ' ', 'r'],
+    ['l', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r'],
+    ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
 ];
 
-// const image = new Image();
-// image.src = './img/pipeHorizontal.png';
-
+function createImage(src) {
+    const image = new Image();
+    image.src = src;
+    return image;
+};
 
 map.forEach((row, i) => {
     row.forEach((symbol, j) => {
@@ -121,7 +123,117 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i,
                         },
-                        // image: image
+                        image: createImage('./img/wallTop.png'),
+                    })
+                )
+                break;
+            case '_':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallBottom.png'),
+                    })
+                )
+                break;
+            case 'l':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallLeft.png'),
+                    })
+                )
+                break;
+            case 'r':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallRight.png'),
+                    })
+                )
+                break;
+            case '|':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/woodShelf.png'),
+                    })
+                )
+                break;
+            case '1':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallCorner1.png'),
+                })
+            )
+            break;
+            case '2':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallCorner2.png'),
+                    })
+                )
+                break;
+            case '3':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallCorner3.png'),
+                    })
+                )
+                break;
+            case '4':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallCorner4.png'),
+                    })
+                )
+                break;
+            case 'u':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/woodShelfBottom.png'),
+                    })
+                )
+                break;
+            case 'n':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/woodShelfTop.png'),
                     })
                 )
                 break;
@@ -150,37 +262,6 @@ function circleCollidesWithRectangle({
             circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
 }
 
-// function animate() {
-//     requestAnimationFrame(animate);
-//     c.clearRect(0, 0, canvas.width, canvas.height);
-
-//     boundaries.forEach((boundary) => {
-//         boundary.draw();
-//         if (sam.position.y - sam.radius + sam.velocity.y <= boundary.position.y + boundary.height &&
-//             sam.position.y + sam.radius + sam.velocity.y >= boundary.position.y &&
-//             sam.position.x + sam.radius + sam.velocity.x >= boundary.position.x &&
-//             sam.position.x - sam.radius + sam.velocity.x <= boundary.position.x + boundary.width) {
-//             sam.velocity.x = 0;
-//             sam.velocity.y = 0;
-//         };
-//     });
-
-
-
-//     food.forEach((foodItem) => {
-//         food.draw();
-//         if circleCollidesWithRectangle({
-//             circle: sam,
-//             rectangle: foodItem,
-//         })
-//         console.log('touching')
-//     });
-
-//     sam.update();
-// };
-
-// animate();
-
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -196,7 +277,7 @@ function animate() {
         }
     });
 
-    for (let i = food.length - 1; 0 < i; i--) {
+    for (let i = 0; i < food.length; i++) {
         const foodItem = food[i]
         foodItem.draw();
         // Check for collisions between the player and food
@@ -208,18 +289,6 @@ function animate() {
             food.splice(i, 1)
         }
     }
-
-    // food.forEach((foodItem, i) => {
-    //     foodItem.draw();
-    //     // Check for collisions between the player and food
-    //     if (circleCollidesWithRectangle({
-    //         circle: sam,
-    //         rectangle: foodItem,
-    //     })) {
-    //         console.log('touching food');
-    //         food.splice(i, 1)
-    //     }
-    // });
 
     sam.update();
 }
