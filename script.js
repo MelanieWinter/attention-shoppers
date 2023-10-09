@@ -30,7 +30,7 @@ class Player {
     constructor({ position, velocity }) {
         this.position = position;
         this.velocity = velocity;
-        this.radius = 13;
+        this.radius = 20;
     };
 
     draw() {
@@ -50,6 +50,31 @@ class Player {
     };
 };
 
+// class Employee {
+//     constructor({ position, velocity }) {
+//         this.position = position;
+//         this.velocity = velocity;
+//         this.radius = 15;
+//         this.prevCollisions = [];
+//     };
+
+//     draw() {
+//         c.beginPath();
+//         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+//         c.fillStyle = 'yellow';
+//         c.fill();
+//         c.strokeStyle = 'red';
+//         c.stroke();
+//         c.closePath();
+//     };
+
+//     update()  {
+//         this.draw()
+//         this.position.x += this.velocity.x
+//         this.position.y += this.velocity.y
+//     }
+// }
+
 class Food {
     constructor({ type, position, image }) {
         this.type = type;
@@ -61,13 +86,6 @@ class Food {
     };
 
     draw() {
-        // c.beginPath();
-        // c.fillStyle = 'rgb(218, 22, 37)';
-        // c.fillRect(this.position.x, this.position.y, this.width, this.height);
-        // c.fill();
-        // // c.strokeStyle = 'rgb(115, 19, 29)';
-        // // c.stroke();
-        // c.closePath();
         c.drawImage(this.image, this.position.x, this.position.y);
     };
 
@@ -86,13 +104,24 @@ class Food {
 const inventory = [];
 const inventoryDisplay = document.getElementById('inventory-display');
 const inventoryList = document.getElementById('inventory-list');
-// inventoryDisplay.textContent = 'Inventory: ' + inventory.join(', ');
 const food = [];
 const boundaries = [];
+
+// const employee = new Employee({
+//         position: {
+//             x: Boundary.width + Boundary.width * 6.5,
+//             y: Boundary.height + Boundary.height - 15,
+//         },
+//         velocity: {
+//             x: 5,
+//             y: 5,
+//         }
+//     })
+
 const sam = new Player({
     position: {
-        x: Boundary.width + Boundary.width * 2,
-        y: Boundary.height + Boundary.height * 4.5,
+        x: Boundary.width + Boundary.width * 13.5,
+        y: Boundary.height + Boundary.height - 15,
     },
     velocity: {
         x: 0,
@@ -101,18 +130,18 @@ const sam = new Player({
 });
 
 const map = [
-    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '[', '!', ']', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', '$', '$', '$', '$', ' ', ' ', ' ', ' ', ' ', '$', '$', '$', '$', ' ', ' ', ' ', ' ', ' ', 't', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '<', '+', '>', 't', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '<', '+', '>', 't', '*', 'r'],
+    ['1', '-', '-', '-', '-', '-', '-', '%', '-', '-', '-', '-', '-', '[', '!', ']', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
+    ['l', '*', '+', '+', '+', '+', '+', ' ', '$', '$', '$', '$', ' ', ' ', ' ', ' ', ' ', '$', '$', '$', '$', ' ', '+', '+', '+', '+', '+', '+', 'r'],
     ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', '^', ' ', ' ', '^', ' ', ' ', '^', ' ', ' ', '^', ' ', ' ', '^', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '<', '+', '>', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '>', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '<', '+', '>', 't', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', 't', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '>', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '<', '+', '>', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '>', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '<', '+', '>', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '>', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '<', '+', '>', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '>', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '<', '+', '>', ' ', '*', 'r'],
     ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'm', 'm', 'm', 'm', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
     ['l', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '*', 'r'],
     ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
@@ -253,6 +282,17 @@ map.forEach((row, i) => {
                             y: Boundary.height * i,
                         },
                         image: createImage('./img/doorMiddle.png'),
+                    })
+                )
+                break;
+            case '%':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./img/wallPhone.png'),
                     })
                 )
                 break;
@@ -402,10 +442,131 @@ function animate() {
         const foodItem = food[i];
         foodItem.update();
         foodItem.draw();
-    }    
+    }   
 
     sam.update();
-}
+};
+
+
+//     // employees.forEach((employee) => {
+//         employee.update();
+//         // employee.angle = Math.random() * Math.PI * 2;  // Initialize with a random angle
+        
+//         // employee.draw();
+    
+//         const collisions = [];
+//         boundaries.forEach((boundary) => {
+    
+//             if (
+//                 !collisions.includes('right') &&
+//                 circleCollidesWithRectangle({
+//                     circle: {
+//                         ...employee,
+//                         velocity: {
+//                             x: 5,
+//                             y: 0,
+//                         }
+//                     },
+//                     rectangle: boundary,
+//                 })
+//             ) {
+//                 collisions.push('right');
+//             }
+    
+//             if (
+//                 !collisions.includes('left') &&
+//                 circleCollidesWithRectangle({
+//                     circle: {
+//                         ...employee,
+//                         velocity: {
+//                             x: -5,
+//                             y: 0,
+//                         }
+//                     },
+//                     rectangle: boundary,
+//                 })
+//             ) {
+//                 collisions.push('left');
+//             }
+    
+//             if (
+//                 !collisions.includes('up') &&
+//                 circleCollidesWithRectangle({
+//                     circle: {
+//                         ...employee,
+//                         velocity: {
+//                             x: 0,
+//                             y: -5,
+//                         }
+//                     },
+//                     rectangle: boundary,
+//                 })
+//             ) {
+//                 collisions.push('up');
+//             }
+    
+//             if (
+//                 !collisions.includes('down') &&
+//                 circleCollidesWithRectangle({
+//                     circle: {
+//                         ...employee,
+//                         velocity: {
+//                             x: 0,
+//                             y: 3,
+//                         }
+//                     },
+//                     rectangle: boundary,
+//                 })
+//             ) {
+//                 collisions.push('down');
+//             }
+//         });
+    
+//         if (collisions.length > employee.prevCollisions.length) {
+//             employee.prevCollisions = collisions;
+//         }
+//         if (JSON.stringify(collisions) !== JSON.stringify(employee.prevCollisions)) {
+    
+//             if (employee.velocity.x > 0) employee.prevCollisions.push('right');
+//             else if (employee.velocity.x < 0) employee.prevCollisions.push('left');
+//             else if (employee.velocity.y < 0) employee.prevCollisions.push('up');
+//             else if (employee.velocity.y > 0) employee.prevCollisions.push('down');
+    
+//             const pathways = employee.prevCollisions.filter(collision => {
+//                 return collisions.includes(collision);
+//             });
+    
+//             const direction = pathways[Math.floor(Math.random() * pathways.length)];
+
+//             switch (direction) {
+//                 case 'down':
+//                     employee.velocity.y = 3
+//                     employee.velocity.x = 0
+//                     // accelerateEmployee(employee, 5, 0);
+//                     break;
+            
+//                 case 'up':
+//                     employee.velocity.y = -3
+//                     employee.velocity.x = 0
+//                     // accelerateEmployee(employee, -5, 0);
+//                     break;
+            
+//                 case 'right':
+//                     employee.velocity.y = 0
+//                     employee.velocity.x = 3
+//                     // accelerateEmployee(employee, 0, 5);
+//                     break;
+            
+//                 case 'left':
+//                     employee.velocity.y = 0
+//                     employee.velocity.x = -5
+//                     // accelerateEmployee(employee, 0, -5);
+//                     break;
+//             }
+//             employee.prevCollisions = [];
+//         }
+// }
+
 
 function updateInventoryDisplay() {
     const inventoryCounts = { 
