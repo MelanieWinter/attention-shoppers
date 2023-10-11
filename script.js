@@ -4,13 +4,13 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
 class Boundary {
-    static width = 40;
-    static height = 40;
+    static width = 32;
+    static height = 32;
      // pass properties into constructor as an object so order doesn't matter
     constructor({ position, image }) { 
         this.position = position;
-        this.width = 40;
-        this.height = 40;
+        this.width = 32;
+        this.height = 32;
         this.image = image;
         this.originalImage = image;
     };
@@ -26,11 +26,36 @@ class Boundary {
     }
 };
 
+class StoreItem {
+    static width = 32;
+    static height = 32;
+     // pass properties into constructor as an object so order doesn't matter
+    constructor({ position, image }) { 
+        this.position = position;
+        this.width = 32;
+        this.height = 32;
+        this.image = image;
+        this.originalImage = image;
+    };
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y);
+    }
+
+    resetImage() {
+        this.image = this.originalImage;
+    }
+
+    update() {
+
+    };
+};
+
 class Player {
     constructor({ position, velocity }) {
         this.position = position;
         this.velocity = velocity;
-        this.radius = 20;
+        this.radius = 10;
     };
 
     draw() {
@@ -46,6 +71,7 @@ class Player {
     update() {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+        // console.log('Player Position:', this.position);
         this.draw();
     };
 };
@@ -79,8 +105,8 @@ class Food {
     constructor({ type, position, image }) {
         this.type = type;
         this.position = position;
-        this.width = 40;
-        this.height = 40;
+        this.width = 32;
+        this.height = 32;
         this.image = image;
         this.originalImage = image;
     };
@@ -101,11 +127,11 @@ class Food {
 
 };
 
-const inventory = [];
-const inventoryDisplay = document.getElementById('inventory-display');
-const inventoryList = document.getElementById('inventory-list');
+
 const food = [];
 const boundaries = [];
+const storeItems = [];
+
 
 // const employee = new Employee({
 //         position: {
@@ -130,27 +156,27 @@ const sam = new Player({
 });
 
 const map = [
-    ['1', '-', '-', '-', '-', '-', '-', '%', '-', '-', '-', '-', '-', '[', '!', ']', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
-    ['l', '*', '+', '+', '+', '+', '+', ' ', '$', '$', '$', '$', ' ', ' ', ' ', ' ', ' ', '$', '$', '$', '$', ' ', '+', '+', '+', '+', '+', '+', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 't', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '^', ' ', '<', '+', '>', 't', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', 't', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', '*', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '>', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '~', ' ', '<', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'm', 'm', 'm', 'm', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '*', 'r'],
-    ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
+    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '[', ']', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
+    ['l', '*', '+', '+', '+', '+', '+', ' ', ' ', ' ', 'C', 'C', ' ', ' ', ' ', ' ', 'C', 'C', ' ', ' ', ' ', ' ', '+', '+', '+', '+', '+', '+', '+', 'r'],
+    ['l', '*', ' ', ' ', ' ', 'ck', 'ck', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '^', ' ', ' ', '^', ' ', ' ', '^', 'ch', ' ', '^', ' ', ' ', '^', 'br', ' ', ' ', 'ba', 'ba', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ch', ' ', '*', ' ', ' ', '*', 'br', '<', '+', '+', '>', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ch', ' ', '*', ' ', ' ', '*', 'br', '<', '+', '+', '>', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ja', ' ', '*', ' ', '<', '+', '+', '>', 't', '*', 'r'],
+    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ja', ' ', '*', ' ', '<', '+', '+', '>', 't', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', 'ja', ' ', '~', ' ', ' ', ' ', ' ', ' ', 't', '*', 'r'],
+    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'eg', 'eg', 'eg', 'mi', 'mi', 'mi', 'cz', 'cz', 'cz', ' ', '*', 'r'],
+    ['l', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '*', 'r'],
+    ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
 ];
 
 const rows = map.length;
 const columns = map[0].length;
-const canvasWidth = 1160;
-const canvasHeight = 600;
+const canvasWidth = 960;
+const canvasHeight = 480;
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
@@ -163,6 +189,17 @@ function createImage(src) {
 map.forEach((row, i) => {
     row.forEach((symbol, j) => {
         switch (symbol) {
+            case 'C':
+                storeItems.push(
+                    new StoreItem({
+                        position: {
+                            x: StoreItem.width * j,
+                            y: StoreItem.height * i,
+                        },
+                        image: createImage('./img/cashier.png'),
+                    })
+                )
+                break;
             case '-':
                 boundaries.push(
                     new Boundary({
@@ -274,28 +311,6 @@ map.forEach((row, i) => {
                     })
                 )
                 break;
-            case '!':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/doorMiddle.png'),
-                    })
-                )
-                break;
-            case '%':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallPhone.png'),
-                    })
-                )
-                break;
             case '*':
                 boundaries.push(
                     new Boundary({
@@ -303,7 +318,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i,
                         },
-                        image: createImage('./img/woodShelf.png'),
+                        image: createImage('./img/woodShelfVertical.png'),
                     })
                 )
                 break;
@@ -347,7 +362,7 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i,
                         },
-                        image: createImage('./img/woodShelfHorizontalLeft.png'),
+                        image: createImage('./img/woodShelfLeft.png'),
                     })
                 )
                 break;
@@ -358,60 +373,111 @@ map.forEach((row, i) => {
                             x: Boundary.width * j,
                             y: Boundary.height * i,
                         },
-                        image: createImage('./img/woodShelfHorizontalRIght.png'),
+                        image: createImage('./img/woodShelfRight.png'),
                     })
                 )
                 break;
-            case '$':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/register.png'),
-                    })
-                )
-                break;
-            case 't':
-                food.push(
-                    new Food({
-                        type: 'Tomato',
-                        position: {
-                            x: Boundary.width * j + 35,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/tomato.png'),
-                    })
-                )
-                break;
-            case 'm':
+            case 'mi':
                 food.push(
                     new Food({
                         type: 'Milk',
                         position: {
                             x: Boundary.width * j,
-                            y: Boundary.height * i + 35,
+                            y: Boundary.height * i + 25,
                         },
-                        image: createImage('./img/milk.png'),
+                        image: createImage('./imgFood32/milk.png'),
                     })
                 )
                 break;
-            case 'c':
+            case 'eg':
+                food.push(
+                    new Food({
+                        type: 'Eggs',
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i + 25,
+                        },
+                        image: createImage('./imgFood32/eggs.png'),
+                    })
+                )
+                break;     
+            case 'ch':
+                food.push(
+                    new Food({
+                        type: 'Chips',
+                        position: {
+                            x: Boundary.width * j - 25,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./imgFood32/chips.png'),
+                    })
+                )
+                break; 
+            case 'ja':
+                food.push(
+                    new Food({
+                        type: 'Jam',
+                        position: {
+                            x: Boundary.width * j - 25,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./imgFood32/jam.png'),
+                    })
+                )
+                break; 
+            case 'cz':
                 food.push(
                     new Food({
                         type: 'Cheese',
                         position: {
                             x: Boundary.width * j,
-                            y: Boundary.height * i + 35,
+                            y: Boundary.height * i + 25,
                         },
-                        image: createImage('./img/cheese.png'),
+                        image: createImage('./imgFood32/cheese.png'),
                     })
                 )
-                break;
+                break; 
+            case 'ba':
+                food.push(
+                    new Food({
+                        type: 'Bananas',
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i + 25,
+                        },
+                        image: createImage('./imgFood32/bananas.png'),
+                    })
+                )
+                break; 
+            case 'ck':
+                food.push(
+                    new Food({
+                        type: 'Chicken',
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i - 25,
+                        },
+                        image: createImage('./imgFood32/chicken.png'),
+                    })
+                )
+                break; 
+            case 'br':
+                food.push(
+                    new Food({
+                        type: 'Bread',
+                        position: {
+                            x: Boundary.width * j - 25,
+                            y: Boundary.height * i,
+                        },
+                        image: createImage('./imgFood32/bread.png'),
+                    })
+                )
+                break; 
         }
     })
 });
+
+console.log(storeItems);
 
 function circleCollidesWithRectangle({
     circle,
@@ -444,7 +510,14 @@ function animate() {
         foodItem.draw();
     }   
 
+    for (let i = 0; i < storeItems.length; i++) {
+        const storeStuff = storeItems[i];
+        storeStuff.update();
+        storeStuff.draw();
+    }  
+
     sam.update();
+    isAtCashier();
 };
 
 
@@ -568,25 +641,106 @@ function animate() {
 // }
 
 
-function updateInventoryDisplay() {
-    const inventoryCounts = { 
-        'Tomato': 0, 
-        'Milk': 0, 
-        'Cheese': 0 
-    };
+const inventory = [];
+const inventoryList = document.getElementById('inventory-list');
 
-    inventory.forEach(item => inventoryCounts[item]++);
-    
-    const updateSpan = (item) => {
-        const span = document.getElementById(item.toLowerCase());
-        span.innerText = `${inventoryCounts[item]} / 2 - ${item}`;
-        span.style.color = inventoryCounts[item] > 2 ? 'red' : 'black';
-    };
+const shoppingList = [
+    { name: 'Milk', neededAmount: 1, amount: 0 },
+    { name: 'Cheese', neededAmount: 2, amount: 0 },
+    // {name: 'Eggs', neededAmount: 1, amount: 0},
+    // {name: 'Chips', neededAmount: 2, amount: 0},
+    // {name: 'Jam', neededAmount: 3, amount: 0},
+    // {name: 'Bananas', neededAmount: 2, amount: 0},
+    // {name: 'Chicken', neededAmount: 1, amount: 0},
+    // {name: 'Bread', neededAmount: 1, amount: 0},
+];
 
-    ['Tomato', 'Milk', 'Cheese'].forEach(updateSpan);
+const inventoryCounts = shoppingList.map(item => ({
+    name: item.name,
+    displayText: `${item.amount}/${item.neededAmount}`
+}));
+
+inventoryCounts.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} - ${item.displayText}`;
+    inventoryList.appendChild(li);
+});
+
+function updateInventoryDisplay(itemName) {
+    // Reset amounts to 0 before updating
+    shoppingList.forEach(item => (item.amount = 0));
+
+    inventory.forEach(item => {
+        const inventoryItem = shoppingList.find(shoppingItem => shoppingItem.name === item);
+        if (inventoryItem) {
+            inventoryItem.amount++;
+        }
+    });
+
+    // Update the display
+    inventoryList.innerHTML = ''; // Clear existing content
+    shoppingList.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.amount}/${item.neededAmount}`;
+
+        if (item.amount < item.neededAmount) {
+            li.style.color = 'black';
+            li.style.textDecoration = 'none';
+        } else if (item.amount === item.neededAmount) {
+            li.style.color = 'green';
+            li.style.textDecoration = 'line-through';
+        } else if (item.amount > item.neededAmount) {
+            li.style.color = 'red';
+            li.style.textDecoration = 'none';
+        }
+
+        inventoryList.appendChild(li);
+    });
 }
 
 updateInventoryDisplay();
+
+function isAtCashier() {
+    for (const storeItem of storeItems) {
+
+        if (storeItem.image.src.includes('cashier.png')) {
+            const cashierPosition = storeItem.position;
+            if (
+                sam.position.x >= cashierPosition.x &&
+                sam.position.x < cashierPosition.x + StoreItem.width &&
+                sam.position.y >= cashierPosition.y &&
+                sam.position.y < cashierPosition.y + StoreItem.height
+            ) {
+                console.log('Player is at the cashier.');
+                return true;
+            }
+        }
+    }
+    console.log('Player is not at the cashier.');
+    return false;
+
+
+}
+
+
+
+// Function to check if all items in the inventory are green
+function allItemsAreGreen() {
+    for (const item of shoppingList) {
+        const inventoryItem = inventory.find((invItem) => invItem === item.name);
+        if (!inventoryItem || inventoryItem.amount < item.neededAmount) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Function to show a notification
+function showNotification(message) {
+    // Implement your notification mechanism (e.g., alert, custom modal, etc.)
+    alert(message);
+}
+
 
 /*----- event listeners -----*/
 window.addEventListener('keydown', ({ key }) => {
@@ -617,10 +771,31 @@ window.addEventListener('keydown', ({ key }) => {
                 }
             }
             break;
-
-
+        case 'q':
+            // Check if inventory has items
+            if (inventory.length > 0) {
+                const poppedItem = inventory.pop();  // Pop the last item from the inventory
+                food.push(new Food({
+                    type: poppedItem,
+                    position: { x: sam.position.x, y: sam.position.y },
+                    image: createImage(`./imgFood32/${poppedItem.toLowerCase()}.png`),
+                }));
+                updateInventoryDisplay();  // Update inventory display after removing the item
+            }
+            break;
+        case 'p':
+            if (isAtCashier() && allItemsAreGreen()) {
+                console.log('you win!')
+                showNotification('All items are purchased. Thank you for shopping!');
+            } else if (isAtCashier() && !allItemsAreGreen()) {
+                showNotification("The items in your shopping cart are incorrect");
+            } else if (!isAtCashier() && allItemsAreGreen()) {
+                showNotification('You must be at the cashier to check out!')
+            }
+            break; 
     }
 });
+
 
 window.addEventListener('keyup', ({ key }) => {
     switch (key) {
@@ -636,18 +811,7 @@ window.addEventListener('keyup', ({ key }) => {
         case 'd':
             sam.velocity.x = 0;
             break;  
-        case 'q':
-            // Check if inventory has items
-            if (inventory.length > 0) {
-                const poppedItem = inventory.pop();  // Pop the last item from the inventory
-                food.push(new Food({
-                    type: poppedItem,
-                    position: { x: sam.position.x, y: sam.position.y },
-                    image: createImage(`./img/${poppedItem.toLowerCase()}.png`),
-                }));
-                updateInventoryDisplay();  // Update inventory display after removing the item
-            }
-            break;
+
     }
 });
 
@@ -655,4 +819,5 @@ console.log('Inventory', inventory);
 console.log('food', food)
 
 animate();
+
 
