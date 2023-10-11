@@ -644,7 +644,7 @@ function animate() {
 const inventory = [];
 const inventoryList = document.getElementById('inventory-list');
 
-const shoppingList = [
+let shoppingList = [
     { name: 'Milk', neededAmount: 1, amount: 0 },
     { name: 'Cheese', neededAmount: 2, amount: 0 },
     // {name: 'Eggs', neededAmount: 1, amount: 0},
@@ -666,7 +666,7 @@ inventoryCounts.forEach(item => {
     inventoryList.appendChild(li);
 });
 
-function updateInventoryDisplay(itemName) {
+function updateInventoryDisplay() {
     // Reset amounts to 0 before updating
     shoppingList.forEach(item => (item.amount = 0));
 
@@ -674,6 +674,14 @@ function updateInventoryDisplay(itemName) {
         const inventoryItem = shoppingList.find(shoppingItem => shoppingItem.name === item);
         if (inventoryItem) {
             inventoryItem.amount++;
+        } else {
+            // If the item is not on the shopping list, add it temporarily with red color
+            const notOnShoppingList = {
+                name: item,
+                amount: 1,
+                neededAmount: 0
+            };
+            shoppingList.push(notOnShoppingList);
         }
     });
 
@@ -684,7 +692,7 @@ function updateInventoryDisplay(itemName) {
         li.textContent = `${item.name} - ${item.amount}/${item.neededAmount}`;
 
         if (item.amount < item.neededAmount) {
-            li.style.color = 'black';
+            li.style.color = 'black'; // Show not on shopping list items in red
             li.style.textDecoration = 'none';
         } else if (item.amount === item.neededAmount) {
             li.style.color = 'green';
@@ -696,6 +704,9 @@ function updateInventoryDisplay(itemName) {
 
         inventoryList.appendChild(li);
     });
+
+    // Remove temporarily added items
+    shoppingList = shoppingList.filter(item => item.neededAmount > 0);
 }
 
 updateInventoryDisplay();
@@ -722,18 +733,43 @@ function isAtCashier() {
 
 }
 
-
-
-// Function to check if all items in the inventory are green
 function allItemsAreGreen() {
     for (const item of shoppingList) {
-        const inventoryItem = inventory.find((invItem) => invItem === item.name);
-        if (!inventoryItem || inventoryItem.amount < item.neededAmount) {
-            return false;
+        if (item.amount < item.neededAmount) {
+            return false;  // Shopping list item is not green
         }
     }
-    return true;
+
+    // Check additional items not on the shopping list
+    for (const inventoryItem of inventory) {
+        const item = shoppingList.find(shoppingItem => shoppingItem.name === inventoryItem);
+        if (!item || item.amount < item.neededAmount) {
+            return false;  // Additional item not on shopping list is not green
+        }
+    }
+
+    return true;  // All items are green
 }
+
+// function allItemsAreGreen() {
+//     for (const item of shoppingList) {
+//         if (item.amount === item.neededAmount) {
+//             return true;
+//         }
+//     }
+//     return false;
+// }
+
+// // Function to check if all items in the inventory are green
+// function allItemsAreGreen() {
+//     for (const item of shoppingList) {
+//         const inventoryItem = inventory.find((invItem) => invItem === item.name);
+//         if (!inventoryItem || inventoryItem.amount < item.neededAmount) {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
 // Function to show a notification
 function showNotification(message) {
@@ -757,7 +793,23 @@ window.addEventListener('keydown', ({ key }) => {
         case 'd':
             sam.velocity.x = 5
             break;         
+        // case 'e':
+        //     for (let i = 0; i < food.length; i++) {
+        //         const foodItem = food[i];
+        //         if (circleCollidesWithRectangle({
+        //             circle: sam,
+        //             rectangle: foodItem,
+        //         })) {
+        //             inventory.push(foodItem.type);
+        //             food.splice(i, 1);
+        //             i--;  // Decrement i to properly check the next item
+        //             updateInventoryDisplay();
+        //         }
+        //     }
+            // break;
+
         case 'e':
+            let collectedItem = null;
             for (let i = 0; i < food.length; i++) {
                 const foodItem = food[i];
                 if (circleCollidesWithRectangle({
@@ -765,12 +817,22 @@ window.addEventListener('keydown', ({ key }) => {
                     rectangle: foodItem,
                 })) {
                     inventory.push(foodItem.type);
+                    collectedItem = foodItem.type;
                     food.splice(i, 1);
                     i--;  // Decrement i to properly check the next item
-                    updateInventoryDisplay();
                 }
             }
+            updateInventoryDisplay();
+            
+            // Check if the collected item is not on the shopping list
+            const inventoryItem = shoppingList.find(item => item.name === collectedItem);
+            if (!inventoryItem || inventoryItem.neededAmount === 0) {
+                const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
+                // notOnShoppingList.style.color = 'red'; // Change the color to red
+            }
+
             break;
+
         case 'q':
             // Check if inventory has items
             if (inventory.length > 0) {
@@ -819,5 +881,3 @@ console.log('Inventory', inventory);
 console.log('food', food)
 
 animate();
-
-
