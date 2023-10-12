@@ -489,6 +489,44 @@ function circleCollidesWithRectangle({
             circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
 }
 
+// let timer = 15;
+// function decreaseTimer() {
+//     if (timer > 0) {
+//         setTimeout(decreaseTimer, 1000);
+//         timer--;
+
+let totalSeconds = 300; // Change to your desired initial total seconds
+
+function decreaseTimer() {
+    if (totalSeconds > 0) {
+        setTimeout(decreaseTimer, 1000);
+        totalSeconds--;
+
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+
+        // Pad single-digit seconds with a leading zero
+        let secondsDisplay = seconds < 10 ? "0" + seconds : seconds;
+        document.querySelector('#timer').innerHTML = `${minutes}:${secondsDisplay}`;
+    };
+    if (totalSeconds > 10) {
+        document.querySelector('#timer').style.color = 'black';
+    } else {
+        document.querySelector('#timer').style.color = 'rgb(172, 37, 55)';
+        document.querySelector('#timer').style.borderColor = 'rgb(172, 37, 55)';
+        document.querySelector('#timer').setAttribute('class', 'pulsate-bck');
+    }
+    if (totalSeconds === 0) {
+        document.querySelector('#message').innerHTML = 'The store is now closed';
+        document.querySelector('#message').style.display = 'flex';
+        document.querySelector('#play-button').style.display = 'flex';
+        document.querySelector('canvas').setAttribute('class', 'fade-out')
+        document.querySelector('#side').setAttribute('class', 'fade-out')
+    }
+}
+
+decreaseTimer();
+
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -846,12 +884,15 @@ window.addEventListener('keydown', ({ key }) => {
             }
             break;
         case 'p':
-            if (isAtCashier() && allItemsAreGreen()) {
-                console.log('you win!')
-                showNotification('All items are purchased. Thank you for shopping!');
-            } else if (isAtCashier() && !allItemsAreGreen()) {
+            if (isAtCashier() && allItemsAreGreen() && timer !== 0) {
+                document.querySelector('#message').innerHTML = 'Thank you for shopping!';
+                document.querySelector('#message').style.display = 'flex';
+                document.querySelector('#play-button').style.display = 'flex';
+                document.querySelector('canvas').setAttribute('class', 'fade-out')
+                document.querySelector('#side').setAttribute('class', 'fade-out')
+            } else if (isAtCashier() && !allItemsAreGreen() && timer !== 0) {
                 showNotification("The items in your shopping cart are incorrect");
-            } else if (!isAtCashier() && allItemsAreGreen()) {
+            } else if (!isAtCashier() && allItemsAreGreen() && timer !== 0) {
                 showNotification('You must be at the cashier to check out!')
             }
             break; 
