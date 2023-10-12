@@ -519,7 +519,7 @@ function decreaseTimer() {
         document.querySelector('#timer').style.borderColor = 'rgb(172, 37, 55)';
         document.querySelector('#timer').setAttribute('class', 'pulsate-bck');
     }
-    if (totalSeconds === 0) {
+    if (totalSeconds === 0 && !isAtCashier() && !allItemsAreGreen()) {
         document.querySelector('#message').innerHTML = 'The store is now closed';
         document.querySelector('#message').style.display = 'flex';
         document.querySelector('#play-button').style.display = 'flex';
