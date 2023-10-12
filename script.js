@@ -2,6 +2,7 @@ let board1;
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
+// const playAgainButton = document.querySelector('#play-again');
 
 class Boundary {
     static width = 32;
@@ -186,298 +187,300 @@ function createImage(src) {
     return image;
 };
 
-map.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-        switch (symbol) {
-            case 'C':
-                storeItems.push(
-                    new StoreItem({
-                        position: {
-                            x: StoreItem.width * j,
-                            y: StoreItem.height * i,
-                        },
-                        image: createImage('./img/cashier.png'),
-                    })
-                )
-                break;
-            case '-':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallTop.png'),
-                    })
-                )
-                break;
-            case '_':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallBottom.png'),
-                    })
-                )
-                break;
-            case 'l':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallLeft.png'),
-                    })
-                )
-                break;
-            case 'r':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallRight.png'),
-                    })
-                )
-                break;
+function createMap() {
+    map.forEach((row, i) => {
+        row.forEach((symbol, j) => {
+            switch (symbol) {
+                case 'C':
+                    storeItems.push(
+                        new StoreItem({
+                            position: {
+                                x: StoreItem.width * j,
+                                y: StoreItem.height * i,
+                            },
+                            image: createImage('./img/cashier.png'),
+                        })
+                    )
+                    break;
+                case '-':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallTop.png'),
+                        })
+                    )
+                    break;
+                case '_':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallBottom.png'),
+                        })
+                    )
+                    break;
+                case 'l':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallLeft.png'),
+                        })
+                    )
+                    break;
+                case 'r':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallRight.png'),
+                        })
+                    )
+                    break;
 
-            case '1':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallCorner1.png'),
-                })
-            )
-            break;
-            case '2':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallCorner2.png'),
+                case '1':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallCorner1.png'),
                     })
                 )
                 break;
-            case '3':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallCorner3.png'),
-                    })
-                )
-                break;
-            case '4':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/wallCorner4.png'),
-                    })
-                )
-                break;
-            case '[':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/doorLeft.png'),
-                    })
-                )
-                break;
-            case ']':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/doorRight.png'),
-                    })
-                )
-                break;
-            case '*':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelfVertical.png'),
-                    })
-                )
-                break;
-            case '^':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelfTop.png'),
-                    })
-                )
-                break;
-            case '~':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelfBottom.png'),
-                    })
-                )
-                break;
-            case '+':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelfHorizontal.png'),
-                    })
-                )
-                break;
-            case '<':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelfLeft.png'),
-                    })
-                )
-                break;
-            case '>':
-                boundaries.push(
-                    new Boundary({
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./img/woodShelfRight.png'),
-                    })
-                )
-                break;
-            case 'mi':
-                food.push(
-                    new Food({
-                        type: 'Milk',
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i + 25,
-                        },
-                        image: createImage('./imgFood32/milk.png'),
-                    })
-                )
-                break;
-            case 'eg':
-                food.push(
-                    new Food({
-                        type: 'Eggs',
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i + 25,
-                        },
-                        image: createImage('./imgFood32/eggs.png'),
-                    })
-                )
-                break;     
-            case 'ch':
-                food.push(
-                    new Food({
-                        type: 'Chips',
-                        position: {
-                            x: Boundary.width * j - 25,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./imgFood32/chips.png'),
-                    })
-                )
-                break; 
-            case 'ja':
-                food.push(
-                    new Food({
-                        type: 'Jam',
-                        position: {
-                            x: Boundary.width * j - 25,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./imgFood32/jam.png'),
-                    })
-                )
-                break; 
-            case 'cz':
-                food.push(
-                    new Food({
-                        type: 'Cheese',
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i + 25,
-                        },
-                        image: createImage('./imgFood32/cheese.png'),
-                    })
-                )
-                break; 
-            case 'ba':
-                food.push(
-                    new Food({
-                        type: 'Bananas',
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i + 25,
-                        },
-                        image: createImage('./imgFood32/bananas.png'),
-                    })
-                )
-                break; 
-            case 'ck':
-                food.push(
-                    new Food({
-                        type: 'Chicken',
-                        position: {
-                            x: Boundary.width * j,
-                            y: Boundary.height * i - 25,
-                        },
-                        image: createImage('./imgFood32/chicken.png'),
-                    })
-                )
-                break; 
-            case 'br':
-                food.push(
-                    new Food({
-                        type: 'Bread',
-                        position: {
-                            x: Boundary.width * j - 25,
-                            y: Boundary.height * i,
-                        },
-                        image: createImage('./imgFood32/bread.png'),
-                    })
-                )
-                break; 
-        }
-    })
-});
+                case '2':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallCorner2.png'),
+                        })
+                    )
+                    break;
+                case '3':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallCorner3.png'),
+                        })
+                    )
+                    break;
+                case '4':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/wallCorner4.png'),
+                        })
+                    )
+                    break;
+                case '[':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/doorLeft.png'),
+                        })
+                    )
+                    break;
+                case ']':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/doorRight.png'),
+                        })
+                    )
+                    break;
+                case '*':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/woodShelfVertical.png'),
+                        })
+                    )
+                    break;
+                case '^':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/woodShelfTop.png'),
+                        })
+                    )
+                    break;
+                case '~':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/woodShelfBottom.png'),
+                        })
+                    )
+                    break;
+                case '+':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/woodShelfHorizontal.png'),
+                        })
+                    )
+                    break;
+                case '<':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/woodShelfLeft.png'),
+                        })
+                    )
+                    break;
+                case '>':
+                    boundaries.push(
+                        new Boundary({
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./img/woodShelfRight.png'),
+                        })
+                    )
+                    break;
+                case 'mi':
+                    food.push(
+                        new Food({
+                            type: 'Milk',
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i + 25,
+                            },
+                            image: createImage('./imgFood32/milk.png'),
+                        })
+                    )
+                    break;
+                case 'eg':
+                    food.push(
+                        new Food({
+                            type: 'Eggs',
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i + 25,
+                            },
+                            image: createImage('./imgFood32/eggs.png'),
+                        })
+                    )
+                    break;     
+                case 'ch':
+                    food.push(
+                        new Food({
+                            type: 'Chips',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/chips.png'),
+                        })
+                    )
+                    break; 
+                case 'ja':
+                    food.push(
+                        new Food({
+                            type: 'Jam',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/jam.png'),
+                        })
+                    )
+                    break; 
+                case 'cz':
+                    food.push(
+                        new Food({
+                            type: 'Cheese',
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i + 25,
+                            },
+                            image: createImage('./imgFood32/cheese.png'),
+                        })
+                    )
+                    break; 
+                case 'ba':
+                    food.push(
+                        new Food({
+                            type: 'Bananas',
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i + 25,
+                            },
+                            image: createImage('./imgFood32/bananas.png'),
+                        })
+                    )
+                    break; 
+                case 'ck':
+                    food.push(
+                        new Food({
+                            type: 'Chicken',
+                            position: {
+                                x: Boundary.width * j,
+                                y: Boundary.height * i - 25,
+                            },
+                            image: createImage('./imgFood32/chicken.png'),
+                        })
+                    )
+                    break; 
+                case 'br':
+                    food.push(
+                        new Food({
+                            type: 'Bread',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/bread.png'),
+                        })
+                    )
+                    break; 
+            }
+        })
+    });
+};
 
-console.log(storeItems);
+createMap();
 
 function circleCollidesWithRectangle({
     circle,
@@ -495,7 +498,7 @@ function circleCollidesWithRectangle({
 //         setTimeout(decreaseTimer, 1000);
 //         timer--;
 
-let totalSeconds = 300; // Change to your desired initial total seconds
+let totalSeconds = 15; // Change to your desired initial total seconds
 
 function decreaseTimer() {
     if (totalSeconds > 0) {
@@ -526,6 +529,9 @@ function decreaseTimer() {
 }
 
 decreaseTimer();
+
+
+
 
 function animate() {
     requestAnimationFrame(animate);
@@ -918,7 +924,56 @@ window.addEventListener('keyup', ({ key }) => {
     }
 });
 
-console.log('Inventory', inventory);
-console.log('food', food)
+function resetMap() {
+    // Clear existing game objects and recreate the map
+    boundaries.length = 0;
+    food.length = 0;
+    storeItems.length = 0;
+
+    // Call the function to recreate the map
+    createMap();
+}
+
+let isGameRunning = false;
+
+const playAgainButton = document.querySelector('#play-again');
+
+// playAgainButton.removeEventListener('click', handlePlayAgainClick);
+
+playAgainButton.addEventListener('click', () => {
+    console.log('button clicked');
+    // Reset the game state and start a new game
+    // For example, reset inventory, timer, player position, etc.
+    inventory.length = 0; // Clear inventory
+    totalSeconds = 15; // Reset timer to 300 seconds
+    sam.position.x = Boundary.width + Boundary.width * 13.5; // Reset player position
+    sam.position.y = Boundary.height + Boundary.height - 15;
+    sam.velocity.x = 0;
+    sam.velocity.y = 0;
+
+    resetMap();
+
+    updateInventoryDisplay();
+
+    // Reset any other game state variables or objects as needed
+
+    document.querySelector('#timer').style.color = 'black';
+    document.querySelector('#timer').style.borderColor = 'black';
+    document.querySelector('#timer').classList.remove('pulsate-bck');
+
+    // Hide message and play button
+    document.querySelector('#message').style.display = 'none';
+    document.querySelector('#play-button').style.display = 'none';
+
+    // Reset the canvas class to remove fade-out effect
+    document.querySelector('canvas').classList.remove('fade-out');
+    document.querySelector('#side').classList.remove('fade-out');
+
+    // Restart the timer and game loop
+    decreaseTimer();
+
+});
 
 animate();
+
+
