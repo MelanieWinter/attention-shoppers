@@ -56,7 +56,7 @@ class Player {
     constructor({ position, velocity }) {
         this.position = position;
         this.velocity = velocity;
-        this.radius = 10;
+        this.radius = 5;
     };
 
     draw() {
@@ -110,7 +110,12 @@ class Food {
         this.height = 32;
         this.image = image;
         this.originalImage = image;
+        this.isEligibleForPickup = true;  // Indicate if the food is eligible for pickup
     };
+
+    toggleEligibilityForPickup() {
+        this.isEligibleForPickup = !this.isEligibleForPickup;
+    }
 
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y);
@@ -147,7 +152,7 @@ const storeItems = [];
 
 const sam = new Player({
     position: {
-        x: Boundary.width + Boundary.width * 13.5,
+        x: Boundary.width + Boundary.width * 14,
         y: Boundary.height + Boundary.height - 15,
     },
     velocity: {
@@ -157,27 +162,31 @@ const sam = new Player({
 });
 
 const map = [
-    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '[', ']', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
-    ['l', '*', '+', '+', '+', '+', '+', ' ', ' ', ' ', 'C', 'C', ' ', ' ', ' ', ' ', 'C', 'C', ' ', ' ', ' ', ' ', '+', '+', '+', '+', '+', '+', '+', 'r'],
-    ['l', '*', ' ', ' ', ' ', 'ck', 'ck', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '^', ' ', ' ', '^', ' ', ' ', '^', 'ch', ' ', '^', ' ', ' ', '^', 'br', ' ', ' ', 'ba', 'ba', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ch', ' ', '*', ' ', ' ', '*', 'br', '<', '+', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ch', ' ', '*', ' ', ' ', '*', 'br', '<', '+', '+', '>', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ja', ' ', '*', ' ', '<', '+', '+', '>', 't', '*', 'r'],
-    ['l', '*', ' ', '<', '+', '+', '>', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', ' ', ' ', '*', 'ja', ' ', '*', ' ', '<', '+', '+', '>', 't', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', ' ', ' ', '~', 'ja', ' ', '~', ' ', ' ', ' ', ' ', ' ', 't', '*', 'r'],
-    ['l', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'eg', 'eg', 'eg', 'mi', 'mi', 'mi', 'cz', 'cz', 'cz', ' ', '*', 'r'],
-    ['l', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '+', '*', 'r'],
-    ['4', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '_', '3'],
+    ['c1', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '[[', ']]', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', '--', 'c2'],
+    ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'CC', 'CC', '  ', '  ', '  ', '  ', 'CC', 'CC', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
+    ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
+    ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
+    ['ll', '01', '||', '||', '12', '23', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '02', '||', '||', '13', '24', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '03', '||', '||', '14', '25', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '04', '||', '||', '15', '26', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '05', '||', '||', '16', '27', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '06', '||', '||', '17', '28', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '07', '||', '||', '18', '29', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '08', '||', '||', '19', '30', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '09', '||', '||', '20', '31', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '10', '||', '||', '21', '32', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '11', '||', '||', '22', '33', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
+    ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
+    ['ll', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', 'rr'],
+    ['c4', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', '__', 'c3'],
 ];
 
 const rows = map.length;
 const columns = map[0].length;
 const canvasWidth = 960;
-const canvasHeight = 480;
+const canvasHeight = 607;
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
@@ -191,7 +200,7 @@ function createMap() {
     map.forEach((row, i) => {
         row.forEach((symbol, j) => {
             switch (symbol) {
-                case 'C':
+                case 'CC':
                     storeItems.push(
                         new StoreItem({
                             position: {
@@ -202,7 +211,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '-':
+                case '--':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -213,7 +222,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '_':
+                case '__':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -224,7 +233,7 @@ function createMap() {
                         })
                     )
                     break;
-                case 'l':
+                case 'll':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -235,7 +244,7 @@ function createMap() {
                         })
                     )
                     break;
-                case 'r':
+                case 'rr':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -247,7 +256,7 @@ function createMap() {
                     )
                     break;
 
-                case '1':
+                case 'c1':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -258,7 +267,7 @@ function createMap() {
                     })
                 )
                 break;
-                case '2':
+                case 'c2':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -269,7 +278,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '3':
+                case 'c3':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -280,7 +289,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '4':
+                case 'c4':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -291,7 +300,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '[':
+                case '[[':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -302,7 +311,7 @@ function createMap() {
                         })
                     )
                     break;
-                case ']':
+                case ']]':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -313,7 +322,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '*':
+                case '||':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -324,29 +333,7 @@ function createMap() {
                         })
                     )
                     break;
-                case '^':
-                    boundaries.push(
-                        new Boundary({
-                            position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i,
-                            },
-                            image: createImage('./img/woodShelfTop.png'),
-                        })
-                    )
-                    break;
-                case '~':
-                    boundaries.push(
-                        new Boundary({
-                            position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i,
-                            },
-                            image: createImage('./img/woodShelfBottom.png'),
-                        })
-                    )
-                    break;
-                case '+':
+                case '==':
                     boundaries.push(
                         new Boundary({
                             position: {
@@ -357,127 +344,540 @@ function createMap() {
                         })
                     )
                     break;
-                case '<':
-                    boundaries.push(
-                        new Boundary({
+                // case 'mi':
+                //     food.push(
+                //         new Food({
+                //             type: 'Milk',
+                //             position: {
+                //                 x: Boundary.width * j,
+                //                 y: Boundary.height * i + 25,
+                //             },
+                //             image: createImage('./imgFood32/milk.png'),
+                //         })
+                //     )
+                //     break;
+                // case 'eg':
+                //     food.push(
+                //         new Food({
+                //             type: 'Eggs',
+                //             position: {
+                //                 x: Boundary.width * j,
+                //                 y: Boundary.height * i + 25,
+                //             },
+                //             image: createImage('./imgFood32/eggs.png'),
+                //         })
+                //     )
+                //     break;     
+                // case 'ch':
+                //     food.push(
+                //         new Food({
+                //             type: 'Chips',
+                //             position: {
+                //                 x: Boundary.width * j - 25,
+                //                 y: Boundary.height * i,
+                //             },
+                //             image: createImage('./imgFood32/chips.png'),
+                //         })
+                //     )
+                //     break; 
+                // case 'ja':
+                //     food.push(
+                //         new Food({
+                //             type: 'Jam',
+                //             position: {
+                //                 x: Boundary.width * j - 25,
+                //                 y: Boundary.height * i,
+                //             },
+                //             image: createImage('./imgFood32/jam.png'),
+                //         })
+                //     )
+                //     break; 
+                // case 'cz':
+                //     food.push(
+                //         new Food({
+                //             type: 'Cheese',
+                //             position: {
+                //                 x: Boundary.width * j,
+                //                 y: Boundary.height * i + 30,
+                //             },
+                //             image: createImage('./imgFood32/cheese.png'),
+                //         })
+                //     )
+                //     break; 
+                // case 'ba':
+                //     food.push(
+                //         new Food({
+                //             type: 'Bananas',
+                //             position: {
+                //                 x: Boundary.width * j,
+                //                 y: Boundary.height * i + 30,
+                //             },
+                //             image: createImage('./imgFood32/bananas.png'),
+                //         })
+                //     )
+                //     break; 
+                // case 'ck':
+                //     food.push(
+                //         new Food({
+                //             type: 'Chicken',
+                //             position: {
+                //                 x: Boundary.width * j,
+                //                 y: Boundary.height * i - 25,
+                //             },
+                //             image: createImage('./imgFood32/chicken.png'),
+                //         })
+                //     )
+                //     break; 
+                // case 'br':
+                //     food.push(
+                //         new Food({
+                //             type: 'Bread',
+                //             position: {
+                //                 x: Boundary.width * j - 25,
+                //                 y: Boundary.height * i,
+                //             },
+                //             image: createImage('./imgFood32/bread.png'),
+                //         })
+                //     )
+                //     break; 
+                // case 'ho':
+                //     food.push(
+                //         new Food({
+                //             type: 'Hot Dog',
+                //             position: {
+                //                 x: Boundary.width * j + 25,
+                //                 y: Boundary.height * i,
+                //             },
+                //             image: createImage('./imgFood32/hot dog.png'),
+                //         })
+                //     )
+                //     break; 
+                case '01':
+                    food.push(
+                        new Food({
+                            type: 'Roasted Chicken',
                             position: {
-                                x: Boundary.width * j,
+                                x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./img/woodShelfLeft.png'),
+                            image: createImage('./imgFood32/roasted chicken.png'),
                         })
                     )
-                    break;
-                case '>':
-                    boundaries.push(
-                        new Boundary({
+                    break; 
+                case '02':
+                    food.push(
+                        new Food({
+                            type: 'Meatballs',
                             position: {
-                                x: Boundary.width * j,
+                                x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./img/woodShelfRight.png'),
+                            image: createImage('./imgFood32/meatballs.png'),
+                        })
+                    )
+                    break; 
+                case '03':
+                    food.push(
+                        new Food({
+                            type: 'Pizza Slice',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/pizza slice.png'),
+                        })
+                    )
+                    break; 
+                case '04':
+                    food.push(
+                        new Food({
+                            type: 'Salmon Dish',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/salmon dish.png'),
                         })
                     )
                     break;
-                case 'mi':
+                case '05':
                     food.push(
                         new Food({
-                            type: 'Milk',
+                            type: 'Steak Dish',
                             position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i + 25,
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/milk.png'),
+                            image: createImage('./imgFood32/steak dish.png'),
                         })
                     )
                     break;
-                case 'eg':
+                case '06':
                     food.push(
                         new Food({
-                            type: 'Eggs',
+                            type: 'Sushi',
                             position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i + 25,
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/eggs.png'),
+                            image: createImage('./imgFood32/sushi.png'),
                         })
                     )
-                    break;     
-                case 'ch':
+                    break;
+                case '07':
                     food.push(
                         new Food({
-                            type: 'Chips',
+                            type: 'Taco Dish',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/taco dish.png'),
+                        })
+                    )
+                    break;
+                case '08':
+                    food.push(
+                        new Food({
+                            type: 'Cheeseburger',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/cheeseburger.png'),
+                        })
+                    )
+                    break;
+                case '09':
+                    food.push(
+                        new Food({
+                            type: 'Burrito',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/burrito.png'),
+                        })
+                    )
+                    break;
+                case '10':
+                    food.push(
+                        new Food({
+                            type: 'Spaghetti Dish',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/spaghetti dish.png'),
+                        })
+                    )
+                    break;
+                case '11':
+                    food.push(
+                        new Food({
+                            type: 'Sandwich',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/sandwich.png'),
+                        })
+                    )
+                    break;
+                case '12':
+                    food.push(
+                        new Food({
+                            type: 'Apple Pie',
                             position: {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/chips.png'),
+                            image: createImage('./imgFood32/apple pie.png'),
                         })
                     )
-                    break; 
-                case 'ja':
+                    break;
+                case '13':
                     food.push(
                         new Food({
-                            type: 'Jam',
+                            type: 'Cheesecake',
                             position: {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/jam.png'),
+                            image: createImage('./imgFood32/cheesecake.png'),
                         })
                     )
-                    break; 
-                case 'cz':
+                    break;
+                case '14':
                     food.push(
                         new Food({
-                            type: 'Cheese',
-                            position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i + 25,
-                            },
-                            image: createImage('./imgFood32/cheese.png'),
-                        })
-                    )
-                    break; 
-                case 'ba':
-                    food.push(
-                        new Food({
-                            type: 'Bananas',
-                            position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i + 25,
-                            },
-                            image: createImage('./imgFood32/bananas.png'),
-                        })
-                    )
-                    break; 
-                case 'ck':
-                    food.push(
-                        new Food({
-                            type: 'Chicken',
-                            position: {
-                                x: Boundary.width * j,
-                                y: Boundary.height * i - 25,
-                            },
-                            image: createImage('./imgFood32/chicken.png'),
-                        })
-                    )
-                    break; 
-                case 'br':
-                    food.push(
-                        new Food({
-                            type: 'Bread',
+                            type: 'Chocolate Cake',
                             position: {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/bread.png'),
+                            image: createImage('./imgFood32/chocolate cake.png'),
+                        })
+                    )
+                    break;
+                case '15':
+                    food.push(
+                        new Food({
+                            type: 'Lemon Pie',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/lemon pie.png'),
+                        })
+                    )
+                    break;
+                case '16':
+                    food.push(
+                        new Food({
+                            type: 'Strawberry Cake',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/strawberry cake.png'),
+                        })
+                    )
+                    break;
+                case '17':
+                    food.push(
+                        new Food({
+                            type: 'Flan',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/flan.png'),
+                        })
+                    )
+                    break;
+                case '18':
+                    food.push(
+                        new Food({
+                            type: 'Egg Tart',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/egg tart.png'),
+                        })
+                    )
+                    break;
+                case '19':
+                    food.push(
+                        new Food({
+                            type: 'Donuts',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/donuts.png'),
+                        })
+                    )
+                    break;
+                case '20':
+                    food.push(
+                        new Food({
+                            type: 'Cookies',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/cookies.png'),
+                        })
+                    )
+                    break;
+                case '21':
+                    food.push(
+                        new Food({
+                            type: 'Fruitcake',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/fruitcake.png'),
+                        })
+                    )
+                    break;
+                case '22':
+                    food.push(
+                        new Food({
+                            type: 'Gingerbread Men',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/gingerbread men.png'),
+                        })
+                    )
+                    break;
+                case '23':
+                    food.push(
+                        new Food({
+                            type: 'Bowl',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/bowl.png'),
                         })
                     )
                     break; 
-            }
+                case '24':
+                    food.push(
+                        new Food({
+                            type: 'Plate',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/Plate.png'),
+                        })
+                    )
+                    break; 
+                case '25':
+                    food.push(
+                        new Food({
+                            type: 'Scissors',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/scissors.png'),
+                        })
+                    )
+                    break; 
+                case '26':
+                    food.push(
+                        new Food({
+                            type: 'Spatula',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/spatula.png'),
+                        })
+                    )
+                    break;
+                case '27':
+                    food.push(
+                        new Food({
+                            type: 'Whisk',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/whisk.png'),
+                        })
+                    )
+                    break;
+                case '28':
+                    food.push(
+                        new Food({
+                            type: 'Rolling Pin',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/rolling pin.png'),
+                        })
+                    )
+                    break;
+                case '29':
+                    food.push(
+                        new Food({
+                            type: 'Tea Kettle',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/tea kettle.png'),
+                        })
+                    )
+                    break;
+                case '30':
+                    food.push(
+                        new Food({
+                            type: 'Frying Pan',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/frying pan.png'),
+                        })
+                    )
+                    break;
+                case '31':
+                    food.push(
+                        new Food({
+                            type: 'Sponge',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/sponge.png'),
+                        })
+                    )
+                    break;
+                case '32':
+                    food.push(
+                        new Food({
+                            type: 'Scrub Brush',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/scrub brush.png'),
+                        })
+                    )
+                    break;
+                case '33':
+                    food.push(
+                        new Food({
+                            type: 'Cleaning Gloves',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./imgFood32/cleaning gloves.png'),
+                        })
+                    )
+                    break;
+        }
         })
     });
+
+    // Assume food.length is the total number of available food items
+    const totalFoodItems = food.length;
+
+    // Clear existing shopping list
+    shoppingList = [];
+
+    // Ensure shopping list has 10 unique items
+    const numItemsInShoppingList = 10;
+    const selectedFoodIndices = [];
+
+    while (shoppingList.length < numItemsInShoppingList) {
+        const randomFoodIndex = Math.floor(Math.random() * totalFoodItems);
+
+        // Check if this food item is already in the shopping list
+        if (!selectedFoodIndices.includes(randomFoodIndex)) {
+            selectedFoodIndices.push(randomFoodIndex);
+
+            const randomFood = food[randomFoodIndex].type;
+
+            // Generate a random needed amount between 1 and 3
+            const randomNeededAmount = Math.floor(Math.random() * 2) + 1;
+
+            // Add the random food item to the shopping list
+            shoppingList.push({ name: randomFood, neededAmount: randomNeededAmount, amount: 0 });
+        }
+    }
 };
 
 createMap();
@@ -498,7 +898,7 @@ function circleCollidesWithRectangle({
 //         setTimeout(decreaseTimer, 1000);
 //         timer--;
 
-let totalSeconds = 15; // Change to your desired initial total seconds
+let totalSeconds = 100; // Change to your desired initial total seconds
 
 function decreaseTimer() {
     if (totalSeconds > 0) {
@@ -530,9 +930,6 @@ function decreaseTimer() {
 
 decreaseTimer();
 
-
-
-
 function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -552,6 +949,23 @@ function animate() {
         const foodItem = food[i];
         foodItem.update();
         foodItem.draw();
+
+        // Draw a box around the food item if it's eligible for pickup
+        if (circleCollidesWithRectangle({
+            circle: sam,
+            rectangle: foodItem,
+        })) {
+            c.strokeStyle = 'red';  // Change the color to red or any color you prefer
+            c.lineWidth = 2;  // Adjust the line width as needed
+            c.strokeRect(
+                foodItem.position.x,
+                foodItem.position.y,
+                foodItem.width,
+                foodItem.height
+            );
+            // Update the highlighted food name
+            document.getElementById('highlighted-food').innerText = foodItem.type;
+        }
     }   
 
     for (let i = 0; i < storeItems.length; i++) {
@@ -562,7 +976,7 @@ function animate() {
 
     sam.update();
     isAtCashier();
-};
+}
 
 
 //     // employees.forEach((employee) => {
@@ -688,16 +1102,16 @@ function animate() {
 const inventory = [];
 const inventoryList = document.getElementById('inventory-list');
 
-let shoppingList = [
-    { name: 'Milk', neededAmount: 1, amount: 0 },
-    { name: 'Cheese', neededAmount: 2, amount: 0 },
-    // {name: 'Eggs', neededAmount: 1, amount: 0},
-    // {name: 'Chips', neededAmount: 2, amount: 0},
-    // {name: 'Jam', neededAmount: 3, amount: 0},
-    // {name: 'Bananas', neededAmount: 2, amount: 0},
-    // {name: 'Chicken', neededAmount: 1, amount: 0},
-    // {name: 'Bread', neededAmount: 1, amount: 0},
-];
+// let shoppingList = [
+//     { name: 'Milk', neededAmount: 1, amount: 0 },
+//     { name: 'Cheese', neededAmount: 2, amount: 0 },
+//     // {name: 'Eggs', neededAmount: 1, amount: 0},
+//     // {name: 'Chips', neededAmount: 2, amount: 0},
+//     // {name: 'Jam', neededAmount: 3, amount: 0},
+//     // {name: 'Bananas', neededAmount: 2, amount: 0},
+//     // {name: 'Chicken', neededAmount: 1, amount: 0},
+//     // {name: 'Bread', neededAmount: 1, amount: 0},
+// ];
 
 const inventoryCounts = shoppingList.map(item => ({
     name: item.name,
@@ -754,6 +1168,41 @@ function updateInventoryDisplay() {
 }
 
 updateInventoryDisplay();
+
+let goBacks = [];
+
+function updateGoBacksDisplay() {
+    const gobacksDisplay = document.getElementById('gobacks-display');
+    gobacksDisplay.innerHTML = ''; // Clear previous content
+
+    const numItemsToShow = Math.min(goBacks.length, 5); // Display up to 3 items or the number of items available
+
+    for (let i = goBacks.length - numItemsToShow; i < goBacks.length; i++) {
+        const item = goBacks[i];
+
+        // Create an image element for each item
+        const img = document.createElement('img');
+        img.src = `./imgFood32/${item.toLowerCase()}.png`; // Adjust the path to your images accordingly
+        img.alt = item; // Set alt text for accessibility
+
+        // Add event listener to handle item click
+        img.addEventListener('click', () => {
+            // Remove the clicked item from goBacks
+            goBacks.splice(goBacks.indexOf(item), 1);
+            updateGoBacksDisplay(); // Update goBacks display after item is removed
+
+            // Push the item back into the inventory
+            inventory.push(item);
+            updateInventoryDisplay(); // Update inventory display
+        });
+
+        gobacksDisplay.appendChild(img);
+    }
+}
+
+
+
+
 
 function isAtCashier() {
     for (const storeItem of storeItems) {
@@ -821,6 +1270,8 @@ function showNotification(message) {
     alert(message);
 }
 
+let isRespawning = false;
+let collectedFoodPosition = { x: 0, y: 0 }; // Initialize with a default position
 
 /*----- event listeners -----*/
 window.addEventListener('keydown', ({ key }) => {
@@ -838,6 +1289,7 @@ window.addEventListener('keydown', ({ key }) => {
             sam.velocity.x = 5
             break;         
         // case 'e':
+        //     let collectedItem = null;
         //     for (let i = 0; i < food.length; i++) {
         //         const foodItem = food[i];
         //         if (circleCollidesWithRectangle({
@@ -845,48 +1297,100 @@ window.addEventListener('keydown', ({ key }) => {
         //             rectangle: foodItem,
         //         })) {
         //             inventory.push(foodItem.type);
+        //             collectedItem = foodItem.type;
         //             food.splice(i, 1);
         //             i--;  // Decrement i to properly check the next item
-        //             updateInventoryDisplay();
         //         }
         //     }
-            // break;
+        //     updateInventoryDisplay();
+            
+        //     // Check if the collected item is not on the shopping list
+        //     const inventoryItem = shoppingList.find(item => item.name === collectedItem);
+        //     if (!inventoryItem || inventoryItem.neededAmount === 0) {
+        //         const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
+        //         // notOnShoppingList.style.color = 'red'; // Change the color to red
+        //     }
+
+        //     break;
 
         case 'e':
-            let collectedItem = null;
-            for (let i = 0; i < food.length; i++) {
-                const foodItem = food[i];
-                if (circleCollidesWithRectangle({
-                    circle: sam,
-                    rectangle: foodItem,
-                })) {
-                    inventory.push(foodItem.type);
-                    collectedItem = foodItem.type;
-                    food.splice(i, 1);
-                    i--;  // Decrement i to properly check the next item
+            if (!isRespawning) {
+                let collectedItem = null;
+                let foodIndex = -1;  // Track the index of the collected food
+                for (let i = 0; i < food.length; i++) {
+                    const foodItem = food[i];
+                    if (circleCollidesWithRectangle({
+                        circle: sam,
+                        rectangle: foodItem,
+                    })) {
+                        inventory.push(foodItem.type);
+                        collectedItem = foodItem.type;
+                        // Store the position of the collected food
+                        collectedFoodPosition = { x: foodItem.position.x, y: foodItem.position.y };
+                        foodIndex = i;
+                        break;  // Exit the loop when food is collected
+                    }
                 }
-            }
-            updateInventoryDisplay();
-            
-            // Check if the collected item is not on the shopping list
-            const inventoryItem = shoppingList.find(item => item.name === collectedItem);
-            if (!inventoryItem || inventoryItem.neededAmount === 0) {
-                const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
-                // notOnShoppingList.style.color = 'red'; // Change the color to red
-            }
+        
+                if (foodIndex !== -1) {
+                    food.splice(foodIndex, 1); // Remove the collected food from the array
+                }
+        
+                updateInventoryDisplay();
 
+                // Toggle eligibility for pickup for the collected food item
+                if (collectedItem) {
+                    const collectedFood = food.find(item => item.type === collectedItem);
+                    if (collectedFood) {
+                        collectedFood.toggleEligibilityForPickup();
+                    }
+                }
+        
+                // Check if the collected item is not on the shopping list
+                const inventoryItem = shoppingList.find(item => item.name === collectedItem);
+                if (!inventoryItem || inventoryItem.neededAmount === 0) {
+                    const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
+                    // notOnShoppingList.style.color = 'red'; // Change the color to red
+                }
+        
+                // Set a flag to indicate food is respawning
+                isRespawning = true;
+        
+                // Reappear the food after 2 seconds
+                setTimeout(() => {
+                    // Push the collected food item back to the food array with the stored position
+                    food.push(new Food({
+                        type: collectedItem,
+                        position: collectedFoodPosition,  // Use the previous position
+                        image: createImage(`./imgFood32/${collectedItem.toLowerCase()}.png`),
+                    }));
+        
+                    // Reset the flag immediately after the food respawns
+                    isRespawning = false;
+                }, 500);
+            }
+        
             break;
 
+        // case 'q':
+        //     // Check if inventory has items
+        //     if (inventory.length > 0) {
+        //         const poppedItem = inventory.pop();  // Pop the last item from the inventory
+        //         food.push(new Food({
+        //             type: poppedItem,
+        //             position: { x: sam.position.x, y: sam.position.y },
+        //             image: createImage(`./imgFood32/${poppedItem.toLowerCase()}.png`),
+        //         }));
+        //         updateInventoryDisplay();  // Update inventory display after removing the item
+        //     }
+        //     break;
+
         case 'q':
-            // Check if inventory has items
             if (inventory.length > 0) {
-                const poppedItem = inventory.pop();  // Pop the last item from the inventory
-                food.push(new Food({
-                    type: poppedItem,
-                    position: { x: sam.position.x, y: sam.position.y },
-                    image: createImage(`./imgFood32/${poppedItem.toLowerCase()}.png`),
-                }));
-                updateInventoryDisplay();  // Update inventory display after removing the item
+                const poppedItem = inventory.pop();
+                goBacks.push(poppedItem);
+                updateGoBacksDisplay();
+                updateInventoryDisplay();
             }
             break;
         case 'p':
@@ -904,6 +1408,7 @@ window.addEventListener('keydown', ({ key }) => {
             break; 
     }
 });
+
 
 
 window.addEventListener('keyup', ({ key }) => {
@@ -929,6 +1434,7 @@ function resetMap() {
     boundaries.length = 0;
     food.length = 0;
     storeItems.length = 0;
+    goBacks.length = 0;
 
     // Call the function to recreate the map
     createMap();
@@ -945,7 +1451,7 @@ playAgainButton.addEventListener('click', () => {
     // Reset the game state and start a new game
     // For example, reset inventory, timer, player position, etc.
     inventory.length = 0; // Clear inventory
-    totalSeconds = 15; // Reset timer to 300 seconds
+    totalSeconds = 100; // Reset timer to 300 seconds
     sam.position.x = Boundary.width + Boundary.width * 13.5; // Reset player position
     sam.position.y = Boundary.height + Boundary.height - 15;
     sam.velocity.x = 0;
@@ -975,5 +1481,4 @@ playAgainButton.addEventListener('click', () => {
 });
 
 animate();
-
-
+console.log(inventory);

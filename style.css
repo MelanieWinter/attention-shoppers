@@ -61,40 +61,66 @@ canvas {
 #side {
     display: flex;
     flex-direction: column;
-    width: 20%; /* Adjust the width of the side container as needed */
-    align-items: flex-start; /* Align items to the left within the side container */
-    margin-left: 2%; /* Adjust the spacing between game container and side container */
+    width: 20%; /* Set the width to 100% */
+    align-items: flex-start;
+    margin-left: 2%;
+    box-sizing: border-box; /* Apply border-box sizing model */
 }
 
 #timer {
-    width: 100%; /* Adjust the width to occupy full space */
-    text-align: center; /* Center the timer text */
-    font-size: 1.5em; /* Adjust the font size of the timer */
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
     margin-bottom: 2vh;
     margin-top: 2vh;
     border: 2px solid black;
+    box-sizing: border-box;
+}
+
+#pickup {
+    width: 100%;
+    text-align: center;
+    border: 2px solid black;
+    margin-bottom: 2vh;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+#highlighted-food {
+    width: 100%; /* Set width to 100% */
 }
 
 #inventory-display {
-    width: 100%; /* Adjust the width of the inventory display to occupy full space */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #inventory-list {
-    /* max-width: 300px; */
+    width: 100%;
     background-color: #f0f0f0;
     padding: 10px;
-    border: 2px solid #ccc;
+    border: 2px solid black;
     max-height: 70vh;
     overflow-y: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 #inventory-list li {
+    width: 100%;
     padding: 5px 0;
     font-size: 2vh;
 }
+
+#gobacks {
+    width: 100%;
+    margin-top: 2vh;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
 
 .tracking-in-expand {
 	-webkit-animation: tracking-in-expand 5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
