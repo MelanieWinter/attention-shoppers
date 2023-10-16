@@ -1367,7 +1367,7 @@ window.addEventListener('keydown', ({ key }) => {
         
                     // Reset the flag immediately after the food respawns
                     isRespawning = false;
-                }, 500);
+                }, 200);
             }
         
             break;
@@ -1462,6 +1462,7 @@ playAgainButton.addEventListener('click', () => {
     updateInventoryDisplay();
 
     // Reset any other game state variables or objects as needed
+    document.querySelector('#gobacks-display').innerHTML = '';
 
     document.querySelector('#timer').style.color = 'black';
     document.querySelector('#timer').style.borderColor = 'black';
