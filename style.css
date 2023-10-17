@@ -20,6 +20,78 @@ main {
     width: 70%; /* Adjust the width of the game container as needed */
 }
 
+#instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+#title {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#intro-message {
+    margin-bottom: 20px;
+}
+
+#how-to-play {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#how-to-play:before {
+    content: 'How to Play:';
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#how-to-play > div {
+    margin-bottom: 5px;
+}
+
+#instructions-list {
+    border-top: 1px solid #ccc;
+    padding-top: 10px; 
+    padding-bottom: 10px;
+}
+
+#instructions-list:before {
+    content: 'Controls:';
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#instructions-list > div {
+    margin-bottom: 5px;
+}
+
+#press-esc {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 3vh;
+}
+
+#press-esc > div {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 #message {
     position: absolute;
     color: rgb(172, 37, 55);
@@ -53,13 +125,13 @@ main {
 }
 
 canvas {
-    display: block;
+    display: none;
     max-width: 100%;
     border: 2px solid black;
 }
 
 #side {
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 20%; /* Set the width to 100% */
     align-items: flex-start;

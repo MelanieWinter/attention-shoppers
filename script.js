@@ -892,16 +892,40 @@ function circleCollidesWithRectangle({
             circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
 }
 
-// let timer = 15;
-// function decreaseTimer() {
-//     if (timer > 0) {
-//         setTimeout(decreaseTimer, 1000);
-//         timer--;
+let gameStarted = false;
+
+// Function to show the instructions
+function showInstructions() {
+    document.querySelector('#instructions').style.display = 'flex';
+}
+
+// Function to start the game
+function startGame() {
+    document.querySelector('#instructions').style.display = 'none';
+    document.querySelector('canvas').style.display = 'block';
+    document.querySelector('#side').style.display = 'flex';
+}
+
+function pauseGame() {
+    document.querySelector('#message').style.display = 'none';
+    document.querySelector('#play-button').style.display = 'none';
+    document.querySelector('#instructions').style.display = 'flex';
+    document.querySelector('canvas').style.display = 'none';
+    document.querySelector('#side').style.display = 'none';
+}
+
+function resumeGame() {
+    document.querySelector('#instructions').style.display = 'none';
+    document.querySelector('canvas').style.display = 'block';
+    document.querySelector('#side').style.display = 'flex';
+}
 
 let totalSeconds = 100; // Change to your desired initial total seconds
+let timerInterval;
+let isTimerPaused = false;
 
 function decreaseTimer() {
-    if (totalSeconds > 0) {
+    if (!isTimerPaused && totalSeconds > 0) {
         setTimeout(decreaseTimer, 1000);
         totalSeconds--;
 
@@ -928,7 +952,18 @@ function decreaseTimer() {
     }
 }
 
-decreaseTimer();
+function pauseTimer() {
+    isTimerPaused = true;
+    clearTimeout(timerInterval);
+}
+
+// Function to resume the timer
+function resumeTimer() {
+    isTimerPaused = false;
+    decreaseTimer();
+}
+
+// decreaseTimer();
 
 function animate() {
     requestAnimationFrame(animate);
@@ -1406,6 +1441,22 @@ window.addEventListener('keydown', ({ key }) => {
                 showNotification('You must be at the cashier to check out!')
             }
             break; 
+            case 'Escape':
+                if (!gameStarted) {
+                    startGame();
+                    gameStarted = true;
+                    decreaseTimer(); // Start the timer when the game starts
+                } else if (!isTimerPaused) {
+                    isTimerPaused = true;
+                    pauseGame();
+                    pauseTimer();
+                    showInstructions();
+                } else {
+                    isTimerPaused = false;
+                    decreaseTimer();
+                    resumeGame();
+                }
+                break;
     }
 });
 
