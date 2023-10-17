@@ -460,7 +460,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/roasted chicken.png'),
+                            image: createImage('./assets/img/food32/roasted-chicken.png'),
                         })
                     )
                     break; 
@@ -472,7 +472,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/meatballs.png'),
+                            image: createImage('./assets/img/food32/meatballs.png'),
                         })
                     )
                     break; 
@@ -484,7 +484,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/pizza slice.png'),
+                            image: createImage('./assets/img/food32/pizza-slice.png'),
                         })
                     )
                     break; 
@@ -496,7 +496,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/salmon dish.png'),
+                            image: createImage('./assets/img/food32/salmon-dish.png'),
                         })
                     )
                     break;
@@ -508,7 +508,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/steak dish.png'),
+                            image: createImage('./assets/img/food32/steak-dish.png'),
                         })
                     )
                     break;
@@ -520,7 +520,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/sushi.png'),
+                            image: createImage('./assets/img/food32/sushi.png'),
                         })
                     )
                     break;
@@ -532,7 +532,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/taco dish.png'),
+                            image: createImage('./assets/img/food32/taco-dish.png'),
                         })
                     )
                     break;
@@ -544,7 +544,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/cheeseburger.png'),
+                            image: createImage('./assets/img/food32/cheeseburger.png'),
                         })
                     )
                     break;
@@ -556,7 +556,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/burrito.png'),
+                            image: createImage('./assets/img/food32/burrito.png'),
                         })
                     )
                     break;
@@ -568,7 +568,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/spaghetti dish.png'),
+                            image: createImage('./assets/img/food32/spaghetti-dish.png'),
                         })
                     )
                     break;
@@ -580,7 +580,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/sandwich.png'),
+                            image: createImage('./assets/img/food32/sandwich.png'),
                         })
                     )
                     break;
@@ -592,7 +592,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/apple pie.png'),
+                            image: createImage('./assets/img/food32/apple-pie.png'),
                         })
                     )
                     break;
@@ -604,7 +604,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/cheesecake.png'),
+                            image: createImage('./assets/img/food32/cheesecake.png'),
                         })
                     )
                     break;
@@ -616,7 +616,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/chocolate cake.png'),
+                            image: createImage('./assets/img/food32/chocolate-cake.png'),
                         })
                     )
                     break;
@@ -628,7 +628,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/lemon pie.png'),
+                            image: createImage('./assets/img/food32/lemon-pie.png'),
                         })
                     )
                     break;
@@ -640,7 +640,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/strawberry cake.png'),
+                            image: createImage('./assets/img/food32/strawberry-cake.png'),
                         })
                     )
                     break;
@@ -652,7 +652,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/flan.png'),
+                            image: createImage('./assets/img/food32/flan.png'),
                         })
                     )
                     break;
@@ -664,7 +664,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/egg tart.png'),
+                            image: createImage('./assets/img/food32/egg-tart.png'),
                         })
                     )
                     break;
@@ -676,7 +676,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/donuts.png'),
+                            image: createImage('./assets/img/food32/donuts.png'),
                         })
                     )
                     break;
@@ -688,7 +688,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/cookies.png'),
+                            image: createImage('./assets/img/food32/cookies.png'),
                         })
                     )
                     break;
@@ -700,7 +700,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/fruitcake.png'),
+                            image: createImage('./assets/img/food32/fruitcake.png'),
                         })
                     )
                     break;
@@ -712,7 +712,7 @@ function createMap() {
                                 x: Boundary.width * j - 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/gingerbread men.png'),
+                            image: createImage('./assets/img/food32/gingerbread-men.png'),
                         })
                     )
                     break;
@@ -724,7 +724,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/bowl.png'),
+                            image: createImage('./assets/img/food32/bowl.png'),
                         })
                     )
                     break; 
@@ -736,7 +736,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/Plate.png'),
+                            image: createImage('./assets/img/food32/plate.png'),
                         })
                     )
                     break; 
@@ -748,7 +748,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/scissors.png'),
+                            image: createImage('./assets/img/food32/scissors.png'),
                         })
                     )
                     break; 
@@ -760,7 +760,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/spatula.png'),
+                            image: createImage('./assets/img/food32/spatula.png'),
                         })
                     )
                     break;
@@ -772,7 +772,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/whisk.png'),
+                            image: createImage('./assets/img/food32/whisk.png'),
                         })
                     )
                     break;
@@ -784,7 +784,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/rolling pin.png'),
+                            image: createImage('./assets/img/food32/rolling-pin.png'),
                         })
                     )
                     break;
@@ -796,7 +796,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/tea kettle.png'),
+                            image: createImage('./assets/img/food32/tea-kettle.png'),
                         })
                     )
                     break;
@@ -808,7 +808,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/frying pan.png'),
+                            image: createImage('./assets/img/food32/frying-pan.png'),
                         })
                     )
                     break;
@@ -820,7 +820,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/sponge.png'),
+                            image: createImage('./assets/img/food32/sponge.png'),
                         })
                     )
                     break;
@@ -832,7 +832,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/scrub brush.png'),
+                            image: createImage('./assets/img/food32/scrub-brush.png'),
                         })
                     )
                     break;
@@ -844,7 +844,7 @@ function createMap() {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./imgFood32/cleaning gloves.png'),
+                            image: createImage('./assets/img/food32/cleaning-gloves.png'),
                         })
                     )
                     break;
@@ -1182,7 +1182,7 @@ function updateGoBacksDisplay() {
 
         // Create an image element for each item
         const img = document.createElement('img');
-        img.src = `./imgFood32/${item.toLowerCase()}.png`; // Adjust the path to your images accordingly
+        img.src = `./assets/img/food32/${item.split(' ').join('-').toLowerCase()}.png`; // Adjust the path to your images accordingly
         img.alt = item; // Set alt text for accessibility
 
         // Add event listener to handle item click
@@ -1362,7 +1362,7 @@ window.addEventListener('keydown', ({ key }) => {
                     food.push(new Food({
                         type: collectedItem,
                         position: collectedFoodPosition,  // Use the previous position
-                        image: createImage(`./imgFood32/${collectedItem.toLowerCase()}.png`),
+                        image: createImage(`./assets/img/food32/${collectedItem.split(' ').join('-').toLowerCase()}.png`),
                     }));
         
                     // Reset the flag immediately after the food respawns
@@ -1408,8 +1408,6 @@ window.addEventListener('keydown', ({ key }) => {
             break; 
     }
 });
-
-
 
 window.addEventListener('keyup', ({ key }) => {
     switch (key) {
