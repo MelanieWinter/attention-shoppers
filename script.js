@@ -960,7 +960,7 @@ function pauseTimer() {
 // Function to resume the timer
 function resumeTimer() {
     isTimerPaused = false;
-    decreaseTimer();
+    // decreaseTimer();
 }
 
 // decreaseTimer();
@@ -1217,7 +1217,7 @@ function updateGoBacksDisplay() {
 
         // Create an image element for each item
         const img = document.createElement('img');
-        img.src = `./assets/img/food32/${item.split(' ').join('-').toLowerCase()}.png`; // Adjust the path to your images accordingly
+        img.src = `./assets/img/food32/${item.toLowerCase().split(' ').join('-')}.png`; // Adjust the path to your images accordingly
         img.alt = item; // Set alt text for accessibility
 
         // Add event listener to handle item click
@@ -1397,7 +1397,7 @@ window.addEventListener('keydown', ({ key }) => {
                     food.push(new Food({
                         type: collectedItem,
                         position: collectedFoodPosition,  // Use the previous position
-                        image: createImage(`./assets/img/food32/${collectedItem.split(' ').join('-').toLowerCase()}.png`),
+                        image: createImage(`./assets/img/food32/${collectedItem.toLowerCase().split(' ').join('-')}.png`),
                     }));
         
                     // Reset the flag immediately after the food respawns
@@ -1428,19 +1428,28 @@ window.addEventListener('keydown', ({ key }) => {
                 updateInventoryDisplay();
             }
             break;
-        case 'p':
-            if (isAtCashier() && allItemsAreGreen() && timer !== 0) {
-                document.querySelector('#message').innerHTML = 'Thank you for shopping!';
-                document.querySelector('#message').style.display = 'flex';
-                document.querySelector('#play-button').style.display = 'flex';
-                document.querySelector('canvas').setAttribute('class', 'fade-out')
-                document.querySelector('#side').setAttribute('class', 'fade-out')
-            } else if (isAtCashier() && !allItemsAreGreen() && timer !== 0) {
-                showNotification("The items in your shopping cart are incorrect");
-            } else if (!isAtCashier() && allItemsAreGreen() && timer !== 0) {
-                showNotification('You must be at the cashier to check out!')
-            }
-            break; 
+            case 'p':
+                if (isAtCashier() && allItemsAreGreen() && timer !== 0) {
+                    const timeTaken = 100 - totalSeconds; // Calculate time taken
+
+                    const bestTime = localStorage.getItem('bestTime');
+            
+                    if (!bestTime || timeTaken < bestTime) {
+                        localStorage.setItem('bestTime', timeTaken);
+                        updateBestTimeDisplay();
+                    }
+
+                    document.querySelector('#message').innerHTML = 'Thank you for shopping!';
+                    document.querySelector('#message').style.display = 'flex';
+                    document.querySelector('#play-button').style.display = 'flex';
+                    document.querySelector('canvas').setAttribute('class', 'fade-out');
+                    document.querySelector('#side').setAttribute('class', 'fade-out');
+                } else if (isAtCashier() && !allItemsAreGreen() && timer !== 0) {
+                    showNotification("The items in your shopping cart are incorrect");
+                } else if (!isAtCashier() && allItemsAreGreen() && timer !== 0) {
+                    showNotification('You must be at the cashier to check out!')
+                }
+                break; 
             case 'Escape':
                 if (!gameStarted) {
                     startGame();
@@ -1496,7 +1505,6 @@ const playAgainButton = document.querySelector('#play-again');
 // playAgainButton.removeEventListener('click', handlePlayAgainClick);
 
 playAgainButton.addEventListener('click', () => {
-    console.log('button clicked');
     // Reset the game state and start a new game
     // For example, reset inventory, timer, player position, etc.
     inventory.length = 0; // Clear inventory
@@ -1524,10 +1532,21 @@ playAgainButton.addEventListener('click', () => {
     // Reset the canvas class to remove fade-out effect
     document.querySelector('canvas').classList.remove('fade-out');
     document.querySelector('#side').classList.remove('fade-out');
+});
 
-    // Restart the timer and game loop
-    decreaseTimer();
 
+function updateBestTimeDisplay() {
+    const bestTime = localStorage.getItem('bestTime');
+
+    if (bestTime) {
+        document.getElementById('best-time').textContent = `Best Time: ${bestTime} seconds`;
+    } else {
+        document.getElementById('best-time').textContent = 'Best Time: N/A';
+    }
+}
+
+document.getElementById('play-again').addEventListener('click', () => {
+    updateBestTimeDisplay();
 });
 
 animate();

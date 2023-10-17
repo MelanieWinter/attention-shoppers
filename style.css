@@ -195,6 +195,13 @@ canvas {
     box-sizing: border-box;
 }
 
+#best-time {
+    width: 100%;
+    margin-top: 2vh;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
 
 .tracking-in-expand {
 	-webkit-animation: tracking-in-expand 5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
