@@ -2,7 +2,6 @@ let board1;
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
-// const playAgainButton = document.querySelector('#play-again');
 
 class Boundary {
     static width = 32;
@@ -77,31 +76,6 @@ class Player {
     };
 };
 
-// class Employee {
-//     constructor({ position, velocity }) {
-//         this.position = position;
-//         this.velocity = velocity;
-//         this.radius = 15;
-//         this.prevCollisions = [];
-//     };
-
-//     draw() {
-//         c.beginPath();
-//         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-//         c.fillStyle = 'yellow';
-//         c.fill();
-//         c.strokeStyle = 'red';
-//         c.stroke();
-//         c.closePath();
-//     };
-
-//     update()  {
-//         this.draw()
-//         this.position.x += this.velocity.x
-//         this.position.y += this.velocity.y
-//     }
-// }
-
 class Food {
     constructor({ type, position, image }) {
         this.type = type;
@@ -130,25 +104,11 @@ class Food {
     resetImage() {
         this.image = this.originalImage;
     }
-
 };
-
 
 const food = [];
 const boundaries = [];
 const storeItems = [];
-
-
-// const employee = new Employee({
-//         position: {
-//             x: Boundary.width + Boundary.width * 6.5,
-//             y: Boundary.height + Boundary.height - 15,
-//         },
-//         velocity: {
-//             x: 5,
-//             y: 5,
-//         }
-//     })
 
 const sam = new Player({
     position: {
@@ -852,7 +812,6 @@ function createMap() {
         })
     });
 
-    // Assume food.length is the total number of available food items
     const totalFoodItems = food.length;
 
     // Clear existing shopping list
@@ -1013,141 +972,8 @@ function animate() {
     isAtCashier();
 }
 
-
-//     // employees.forEach((employee) => {
-//         employee.update();
-//         // employee.angle = Math.random() * Math.PI * 2;  // Initialize with a random angle
-        
-//         // employee.draw();
-    
-//         const collisions = [];
-//         boundaries.forEach((boundary) => {
-    
-//             if (
-//                 !collisions.includes('right') &&
-//                 circleCollidesWithRectangle({
-//                     circle: {
-//                         ...employee,
-//                         velocity: {
-//                             x: 5,
-//                             y: 0,
-//                         }
-//                     },
-//                     rectangle: boundary,
-//                 })
-//             ) {
-//                 collisions.push('right');
-//             }
-    
-//             if (
-//                 !collisions.includes('left') &&
-//                 circleCollidesWithRectangle({
-//                     circle: {
-//                         ...employee,
-//                         velocity: {
-//                             x: -5,
-//                             y: 0,
-//                         }
-//                     },
-//                     rectangle: boundary,
-//                 })
-//             ) {
-//                 collisions.push('left');
-//             }
-    
-//             if (
-//                 !collisions.includes('up') &&
-//                 circleCollidesWithRectangle({
-//                     circle: {
-//                         ...employee,
-//                         velocity: {
-//                             x: 0,
-//                             y: -5,
-//                         }
-//                     },
-//                     rectangle: boundary,
-//                 })
-//             ) {
-//                 collisions.push('up');
-//             }
-    
-//             if (
-//                 !collisions.includes('down') &&
-//                 circleCollidesWithRectangle({
-//                     circle: {
-//                         ...employee,
-//                         velocity: {
-//                             x: 0,
-//                             y: 3,
-//                         }
-//                     },
-//                     rectangle: boundary,
-//                 })
-//             ) {
-//                 collisions.push('down');
-//             }
-//         });
-    
-//         if (collisions.length > employee.prevCollisions.length) {
-//             employee.prevCollisions = collisions;
-//         }
-//         if (JSON.stringify(collisions) !== JSON.stringify(employee.prevCollisions)) {
-    
-//             if (employee.velocity.x > 0) employee.prevCollisions.push('right');
-//             else if (employee.velocity.x < 0) employee.prevCollisions.push('left');
-//             else if (employee.velocity.y < 0) employee.prevCollisions.push('up');
-//             else if (employee.velocity.y > 0) employee.prevCollisions.push('down');
-    
-//             const pathways = employee.prevCollisions.filter(collision => {
-//                 return collisions.includes(collision);
-//             });
-    
-//             const direction = pathways[Math.floor(Math.random() * pathways.length)];
-
-//             switch (direction) {
-//                 case 'down':
-//                     employee.velocity.y = 3
-//                     employee.velocity.x = 0
-//                     // accelerateEmployee(employee, 5, 0);
-//                     break;
-            
-//                 case 'up':
-//                     employee.velocity.y = -3
-//                     employee.velocity.x = 0
-//                     // accelerateEmployee(employee, -5, 0);
-//                     break;
-            
-//                 case 'right':
-//                     employee.velocity.y = 0
-//                     employee.velocity.x = 3
-//                     // accelerateEmployee(employee, 0, 5);
-//                     break;
-            
-//                 case 'left':
-//                     employee.velocity.y = 0
-//                     employee.velocity.x = -5
-//                     // accelerateEmployee(employee, 0, -5);
-//                     break;
-//             }
-//             employee.prevCollisions = [];
-//         }
-// }
-
-
 const inventory = [];
 const inventoryList = document.getElementById('inventory-list');
-
-// let shoppingList = [
-//     { name: 'Milk', neededAmount: 1, amount: 0 },
-//     { name: 'Cheese', neededAmount: 2, amount: 0 },
-//     // {name: 'Eggs', neededAmount: 1, amount: 0},
-//     // {name: 'Chips', neededAmount: 2, amount: 0},
-//     // {name: 'Jam', neededAmount: 3, amount: 0},
-//     // {name: 'Bananas', neededAmount: 2, amount: 0},
-//     // {name: 'Chicken', neededAmount: 1, amount: 0},
-//     // {name: 'Bread', neededAmount: 1, amount: 0},
-// ];
-
 const inventoryCounts = shoppingList.map(item => ({
     name: item.name,
     displayText: `${item.amount}/${item.neededAmount}`
@@ -1279,29 +1105,8 @@ function allItemsAreGreen() {
     return true;  // All items are green
 }
 
-// function allItemsAreGreen() {
-//     for (const item of shoppingList) {
-//         if (item.amount === item.neededAmount) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
-
-// // Function to check if all items in the inventory are green
-// function allItemsAreGreen() {
-//     for (const item of shoppingList) {
-//         const inventoryItem = inventory.find((invItem) => invItem === item.name);
-//         if (!inventoryItem || inventoryItem.amount < item.neededAmount) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
 // Function to show a notification
 function showNotification(message) {
-    // Implement your notification mechanism (e.g., alert, custom modal, etc.)
     alert(message);
 }
 
@@ -1323,31 +1128,6 @@ window.addEventListener('keydown', ({ key }) => {
         case 'd':
             sam.velocity.x = 5
             break;         
-        // case 'e':
-        //     let collectedItem = null;
-        //     for (let i = 0; i < food.length; i++) {
-        //         const foodItem = food[i];
-        //         if (circleCollidesWithRectangle({
-        //             circle: sam,
-        //             rectangle: foodItem,
-        //         })) {
-        //             inventory.push(foodItem.type);
-        //             collectedItem = foodItem.type;
-        //             food.splice(i, 1);
-        //             i--;  // Decrement i to properly check the next item
-        //         }
-        //     }
-        //     updateInventoryDisplay();
-            
-        //     // Check if the collected item is not on the shopping list
-        //     const inventoryItem = shoppingList.find(item => item.name === collectedItem);
-        //     if (!inventoryItem || inventoryItem.neededAmount === 0) {
-        //         const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
-        //         // notOnShoppingList.style.color = 'red'; // Change the color to red
-        //     }
-
-        //     break;
-
         case 'e':
             if (!isRespawning) {
                 let collectedItem = null;
@@ -1385,7 +1165,6 @@ window.addEventListener('keydown', ({ key }) => {
                 const inventoryItem = shoppingList.find(item => item.name === collectedItem);
                 if (!inventoryItem || inventoryItem.neededAmount === 0) {
                     const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
-                    // notOnShoppingList.style.color = 'red'; // Change the color to red
                 }
         
                 // Set a flag to indicate food is respawning
@@ -1406,20 +1185,6 @@ window.addEventListener('keydown', ({ key }) => {
             }
         
             break;
-
-        // case 'q':
-        //     // Check if inventory has items
-        //     if (inventory.length > 0) {
-        //         const poppedItem = inventory.pop();  // Pop the last item from the inventory
-        //         food.push(new Food({
-        //             type: poppedItem,
-        //             position: { x: sam.position.x, y: sam.position.y },
-        //             image: createImage(`./imgFood32/${poppedItem.toLowerCase()}.png`),
-        //         }));
-        //         updateInventoryDisplay();  // Update inventory display after removing the item
-        //     }
-        //     break;
-
         case 'q':
             if (inventory.length > 0) {
                 const poppedItem = inventory.pop();
@@ -1502,11 +1267,9 @@ let isGameRunning = false;
 
 const playAgainButton = document.querySelector('#play-again');
 
-// playAgainButton.removeEventListener('click', handlePlayAgainClick);
+
 
 playAgainButton.addEventListener('click', () => {
-    // Reset the game state and start a new game
-    // For example, reset inventory, timer, player position, etc.
     inventory.length = 0; // Clear inventory
     totalSeconds = 100; // Reset timer to 300 seconds
     sam.position.x = Boundary.width + Boundary.width * 13.5; // Reset player position
@@ -1518,7 +1281,7 @@ playAgainButton.addEventListener('click', () => {
 
     updateInventoryDisplay();
 
-    // Reset any other game state variables or objects as needed
+ 
     document.querySelector('#gobacks-display').innerHTML = '';
 
     document.querySelector('#timer').style.color = 'black';
