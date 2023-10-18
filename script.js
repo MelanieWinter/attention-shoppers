@@ -1,12 +1,70 @@
-let board1;
+// let board1;
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
+let gameStarted = false;
+let isGameRunning = false;
+let totalSeconds = 100;
+let timerInterval;
+let isTimerPaused = false;
+let isRespawning = false;
+let collectedFoodPosition = { x: 0, y: 0 };
+
+const inventory = [];
+const food = [];
+const boundaries = [];
+const storeItems = [];
+const goBacks = [];
+
+const playAgainButton = document.querySelector('#play-again');
+const inventoryList = document.getElementById('inventory-list');
+
+function showNotification(message) {
+    alert(message);
+};
+
+function showInstructions() {
+    document.querySelector('#instructions').style.display = 'flex';
+};
+
+function hideInstructions() {
+    document.querySelector('#instructions').style.display = 'none';
+};
+
+function showGameScreen() {
+    document.querySelector('canvas').style.display = 'block';
+    document.querySelector('#side').style.display = 'flex';
+};
+
+function hideGameScreen() {
+    document.querySelector('canvas').style.display = 'none';
+    document.querySelector('#side').style.display = 'none';
+};
+
+function fadeGameScreen() {
+    document.querySelector('canvas').setAttribute('class', 'fade-out');
+    document.querySelector('#side').setAttribute('class', 'fade-out');
+};
+
+function removeFadeGameScreen() {
+    document.querySelector('canvas').classList.remove('fade-out');
+    document.querySelector('#side').classList.remove('fade-out');
+};
+
+function showPlayAgain() {
+    document.querySelector('#message').style.display = 'flex';
+    document.querySelector('#play-button').style.display = 'flex';
+};
+
+function hidePlayAgain() {
+    document.querySelector('#message').style.display = 'none';
+    document.querySelector('#play-button').style.display = 'none';
+};
+
 class Boundary {
     static width = 32;
     static height = 32;
-     // pass properties into constructor as an object so order doesn't matter
     constructor({ position, image }) { 
         this.position = position;
         this.width = 32;
@@ -14,22 +72,17 @@ class Boundary {
         this.image = image;
         this.originalImage = image;
     };
-
     draw() {
-        // c.fillStyle = 'rgb(59, 90, 175)';
-        // c.fillRect(this.position.x, this.position.y, this.width, this.height);
         c.drawImage(this.image, this.position.x, this.position.y);
-    }
-
+    };
     resetImage() {
         this.image = this.originalImage;
-    }
+    };
 };
 
 class StoreItem {
     static width = 32;
     static height = 32;
-     // pass properties into constructor as an object so order doesn't matter
     constructor({ position, image }) { 
         this.position = position;
         this.width = 32;
@@ -37,17 +90,13 @@ class StoreItem {
         this.image = image;
         this.originalImage = image;
     };
-
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y);
-    }
-
+    };
     resetImage() {
         this.image = this.originalImage;
-    }
-
+    };
     update() {
-
     };
 };
 
@@ -57,7 +106,6 @@ class Player {
         this.velocity = velocity;
         this.radius = 5;
     };
-
     draw() {
         c.beginPath();
         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
@@ -67,16 +115,16 @@ class Player {
         c.stroke();
         c.closePath();
     };
-
     update() {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-        // console.log('Player Position:', this.position);
         this.draw();
     };
 };
 
 class Food {
+    static width = 32;
+    static height = 32;
     constructor({ type, position, image }) {
         this.type = type;
         this.position = position;
@@ -84,31 +132,23 @@ class Food {
         this.height = 32;
         this.image = image;
         this.originalImage = image;
-        this.isEligibleForPickup = true;  // Indicate if the food is eligible for pickup
+        this.isEligibleForPickup = true;
     };
-
     toggleEligibilityForPickup() {
         this.isEligibleForPickup = !this.isEligibleForPickup;
-    }
-
+    };
     draw() {
         c.drawImage(this.image, this.position.x, this.position.y);
     };
-
     update() {
         this.position.x;
         this.position.y;
         this.draw();
     };
-
     resetImage() {
         this.image = this.originalImage;
-    }
+    };
 };
-
-const food = [];
-const boundaries = [];
-const storeItems = [];
 
 const sam = new Player({
     position: {
@@ -118,7 +158,7 @@ const sam = new Player({
     velocity: {
         x: 0,
         y: 0,
-    }
+    },
 });
 
 const map = [
@@ -841,47 +881,21 @@ function createMap() {
 
 createMap();
 
-function circleCollidesWithRectangle({
-    circle,
-    rectangle,
-}) {
-    return (circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height &&
-            circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x &&
-            circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y &&
-            circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
-}
-
-let gameStarted = false;
-
-// Function to show the instructions
-function showInstructions() {
-    document.querySelector('#instructions').style.display = 'flex';
-}
-
-// Function to start the game
 function startGame() {
-    document.querySelector('#instructions').style.display = 'none';
-    document.querySelector('canvas').style.display = 'block';
-    document.querySelector('#side').style.display = 'flex';
-}
+    hideInstructions();
+    showGameScreen();
+};
 
 function pauseGame() {
-    document.querySelector('#message').style.display = 'none';
-    document.querySelector('#play-button').style.display = 'none';
-    document.querySelector('#instructions').style.display = 'flex';
-    document.querySelector('canvas').style.display = 'none';
-    document.querySelector('#side').style.display = 'none';
-}
+    showInstructions();
+    hideGameScreen();
+    hidePlayAgain();
+};
 
 function resumeGame() {
-    document.querySelector('#instructions').style.display = 'none';
-    document.querySelector('canvas').style.display = 'block';
-    document.querySelector('#side').style.display = 'flex';
-}
-
-let totalSeconds = 100; // Change to your desired initial total seconds
-let timerInterval;
-let isTimerPaused = false;
+    hideInstructions();
+    showGameScreen();
+};
 
 function decreaseTimer() {
     if (!isTimerPaused && totalSeconds > 0) {
@@ -890,111 +904,51 @@ function decreaseTimer() {
 
         let minutes = Math.floor(totalSeconds / 60);
         let seconds = totalSeconds % 60;
-
-        // Pad single-digit seconds with a leading zero
         let secondsDisplay = seconds < 10 ? "0" + seconds : seconds;
         document.querySelector('#timer').innerHTML = `${minutes}:${secondsDisplay}`;
     };
+
     if (totalSeconds > 10) {
         document.querySelector('#timer').style.color = 'black';
     } else {
         document.querySelector('#timer').style.color = 'rgb(172, 37, 55)';
         document.querySelector('#timer').style.borderColor = 'rgb(172, 37, 55)';
         document.querySelector('#timer').setAttribute('class', 'pulsate-bck');
-    }
+    };
+
     if (totalSeconds === 0 && !isAtCashier() && !allItemsAreGreen()) {
+        fadeGameScreen();
+        showPlayAgain();
         document.querySelector('#message').innerHTML = 'The store is now closed';
-        document.querySelector('#message').style.display = 'flex';
-        document.querySelector('#play-button').style.display = 'flex';
-        document.querySelector('canvas').setAttribute('class', 'fade-out')
-        document.querySelector('#side').setAttribute('class', 'fade-out')
-    }
-}
+    };
+};
 
 function pauseTimer() {
     isTimerPaused = true;
     clearTimeout(timerInterval);
-}
+};
 
-// Function to resume the timer
 function resumeTimer() {
     isTimerPaused = false;
-    // decreaseTimer();
-}
+    decreaseTimer();
+};
 
-// decreaseTimer();
+function circleCollidesWithRectangle({ circle,rectangle,}) {
+    return (circle.position.y - circle.radius + circle.velocity.y <= rectangle.position.y + rectangle.height &&
+            circle.position.x + circle.radius + circle.velocity.x >= rectangle.position.x &&
+            circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y &&
+            circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
+};
 
-function animate() {
-    requestAnimationFrame(animate);
-    c.clearRect(0, 0, canvas.width, canvas.height);
 
-    boundaries.forEach((boundary) => {
-        boundary.draw();
-        if (circleCollidesWithRectangle({
-            circle: sam,
-            rectangle: boundary,
-        })) {
-            sam.velocity.x = 0;
-            sam.velocity.y = 0;
-        }
-    });
-
-    for (let i = 0; i < food.length; i++) {
-        const foodItem = food[i];
-        foodItem.update();
-        foodItem.draw();
-
-        // Draw a box around the food item if it's eligible for pickup
-        if (circleCollidesWithRectangle({
-            circle: sam,
-            rectangle: foodItem,
-        })) {
-            c.strokeStyle = 'red';  // Change the color to red or any color you prefer
-            c.lineWidth = 2;  // Adjust the line width as needed
-            c.strokeRect(
-                foodItem.position.x,
-                foodItem.position.y,
-                foodItem.width,
-                foodItem.height
-            );
-            // Update the highlighted food name
-            document.getElementById('highlighted-food').innerText = foodItem.type;
-        }
-    }   
-
-    for (let i = 0; i < storeItems.length; i++) {
-        const storeStuff = storeItems[i];
-        storeStuff.update();
-        storeStuff.draw();
-    }  
-
-    sam.update();
-    isAtCashier();
-}
-
-const inventory = [];
-const inventoryList = document.getElementById('inventory-list');
-const inventoryCounts = shoppingList.map(item => ({
-    name: item.name,
-    displayText: `${item.amount}/${item.neededAmount}`
-}));
-
-inventoryCounts.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.name} - ${item.displayText}`;
-    inventoryList.appendChild(li);
-});
 
 function updateInventoryDisplay() {
-    // Reset amounts to 0 before updating
     shoppingList.forEach(item => (item.amount = 0));
-
     inventory.forEach(item => {
         const inventoryItem = shoppingList.find(shoppingItem => shoppingItem.name === item);
         if (inventoryItem) {
             inventoryItem.amount++;
         } else {
-            // If the item is not on the shopping list, add it temporarily with red color
             const notOnShoppingList = {
                 name: item,
                 amount: 1,
@@ -1003,15 +957,12 @@ function updateInventoryDisplay() {
             shoppingList.push(notOnShoppingList);
         }
     });
-
-    // Update the display
-    inventoryList.innerHTML = ''; // Clear existing content
+    inventoryList.innerHTML = '';
     shoppingList.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.name} - ${item.amount}/${item.neededAmount}`;
-
         if (item.amount < item.neededAmount) {
-            li.style.color = 'black'; // Show not on shopping list items in red
+            li.style.color = 'black';
             li.style.textDecoration = 'none';
         } else if (item.amount === item.neededAmount) {
             li.style.color = 'green';
@@ -1023,51 +974,44 @@ function updateInventoryDisplay() {
 
         inventoryList.appendChild(li);
     });
-
-    // Remove temporarily added items
     shoppingList = shoppingList.filter(item => item.neededAmount > 0);
-}
+};
+
+const inventoryCounts = shoppingList.map(item => ({
+    name: item.name,
+    displayText: `${item.amount}/${item.neededAmount}`
+}));
+
+inventoryCounts.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} - ${item.displayText}`;
+    inventoryList.appendChild(li);
+});
 
 updateInventoryDisplay();
 
-let goBacks = [];
-
 function updateGoBacksDisplay() {
     const gobacksDisplay = document.getElementById('gobacks-display');
-    gobacksDisplay.innerHTML = ''; // Clear previous content
-
-    const numItemsToShow = Math.min(goBacks.length, 5); // Display up to 3 items or the number of items available
-
+    gobacksDisplay.innerHTML = '';
+    const numItemsToShow = Math.min(goBacks.length, 5);
     for (let i = goBacks.length - numItemsToShow; i < goBacks.length; i++) {
         const item = goBacks[i];
-
-        // Create an image element for each item
         const img = document.createElement('img');
-        img.src = `./assets/img/food32/${item.toLowerCase().split(' ').join('-')}.png`; // Adjust the path to your images accordingly
-        img.alt = item; // Set alt text for accessibility
-
-        // Add event listener to handle item click
+        img.src = `./assets/img/food32/${item.toLowerCase().split(' ').join('-')}.png`;
+        console.log(img.src);
+        // img.alt = item;
         img.addEventListener('click', () => {
-            // Remove the clicked item from goBacks
             goBacks.splice(goBacks.indexOf(item), 1);
-            updateGoBacksDisplay(); // Update goBacks display after item is removed
-
-            // Push the item back into the inventory
+            updateGoBacksDisplay();
             inventory.push(item);
-            updateInventoryDisplay(); // Update inventory display
+            updateInventoryDisplay();
         });
-
         gobacksDisplay.appendChild(img);
-    }
-}
-
-
-
-
+    };
+};
 
 function isAtCashier() {
     for (const storeItem of storeItems) {
-
         if (storeItem.image.src.includes('cashier.png')) {
             const cashierPosition = storeItem.position;
             if (
@@ -1076,44 +1020,28 @@ function isAtCashier() {
                 sam.position.y >= cashierPosition.y &&
                 sam.position.y < cashierPosition.y + StoreItem.height
             ) {
-                console.log('Player is at the cashier.');
                 return true;
-            }
-        }
-    }
-    console.log('Player is not at the cashier.');
+            };
+        };
+    };
     return false;
-
-
-}
+};
 
 function allItemsAreGreen() {
     for (const item of shoppingList) {
         if (item.amount < item.neededAmount) {
-            return false;  // Shopping list item is not green
-        }
-    }
-
-    // Check additional items not on the shopping list
+            return false;
+        };
+    };
     for (const inventoryItem of inventory) {
         const item = shoppingList.find(shoppingItem => shoppingItem.name === inventoryItem);
         if (!item || item.amount < item.neededAmount) {
-            return false;  // Additional item not on shopping list is not green
-        }
-    }
+            return false;
+        };
+    };
+    return true;
+};
 
-    return true;  // All items are green
-}
-
-// Function to show a notification
-function showNotification(message) {
-    alert(message);
-}
-
-let isRespawning = false;
-let collectedFoodPosition = { x: 0, y: 0 }; // Initialize with a default position
-
-/*----- event listeners -----*/
 window.addEventListener('keydown', ({ key }) => {
     switch (key) {
         case 'w':
@@ -1131,7 +1059,7 @@ window.addEventListener('keydown', ({ key }) => {
         case 'e':
             if (!isRespawning) {
                 let collectedItem = null;
-                let foodIndex = -1;  // Track the index of the collected food
+                let foodIndex = -1;
                 for (let i = 0; i < food.length; i++) {
                     const foodItem = food[i];
                     if (circleCollidesWithRectangle({
@@ -1140,50 +1068,35 @@ window.addEventListener('keydown', ({ key }) => {
                     })) {
                         inventory.push(foodItem.type);
                         collectedItem = foodItem.type;
-                        // Store the position of the collected food
                         collectedFoodPosition = { x: foodItem.position.x, y: foodItem.position.y };
                         foodIndex = i;
-                        break;  // Exit the loop when food is collected
-                    }
-                }
-        
+                        break;
+                    };
+                };
                 if (foodIndex !== -1) {
-                    food.splice(foodIndex, 1); // Remove the collected food from the array
-                }
-        
+                    food.splice(foodIndex, 1);
+                };
                 updateInventoryDisplay();
-
-                // Toggle eligibility for pickup for the collected food item
                 if (collectedItem) {
                     const collectedFood = food.find(item => item.type === collectedItem);
                     if (collectedFood) {
                         collectedFood.toggleEligibilityForPickup();
-                    }
-                }
-        
-                // Check if the collected item is not on the shopping list
+                    };
+                };
                 const inventoryItem = shoppingList.find(item => item.name === collectedItem);
                 if (!inventoryItem || inventoryItem.neededAmount === 0) {
                     const notOnShoppingList = document.querySelector(`li:nth-child(${shoppingList.length})`);
-                }
-        
-                // Set a flag to indicate food is respawning
+                };
                 isRespawning = true;
-        
-                // Reappear the food after 2 seconds
                 setTimeout(() => {
-                    // Push the collected food item back to the food array with the stored position
                     food.push(new Food({
                         type: collectedItem,
-                        position: collectedFoodPosition,  // Use the previous position
+                        position: collectedFoodPosition,
                         image: createImage(`./assets/img/food32/${collectedItem.toLowerCase().split(' ').join('-')}.png`),
                     }));
-        
-                    // Reset the flag immediately after the food respawns
                     isRespawning = false;
                 }, 200);
-            }
-        
+            };
             break;
         case 'q':
             if (inventory.length > 0) {
@@ -1191,24 +1104,19 @@ window.addEventListener('keydown', ({ key }) => {
                 goBacks.push(poppedItem);
                 updateGoBacksDisplay();
                 updateInventoryDisplay();
-            }
+            };
             break;
             case 'p':
                 if (isAtCashier() && allItemsAreGreen() && timer !== 0) {
-                    const timeTaken = 100 - totalSeconds; // Calculate time taken
-
+                    const timeTaken = 100 - totalSeconds;
                     const bestTime = localStorage.getItem('bestTime');
-            
                     if (!bestTime || timeTaken < bestTime) {
                         localStorage.setItem('bestTime', timeTaken);
                         updateBestTimeDisplay();
-                    }
-
+                    };
+                    showPlayAgain();
                     document.querySelector('#message').innerHTML = 'Thank you for shopping!';
-                    document.querySelector('#message').style.display = 'flex';
-                    document.querySelector('#play-button').style.display = 'flex';
-                    document.querySelector('canvas').setAttribute('class', 'fade-out');
-                    document.querySelector('#side').setAttribute('class', 'fade-out');
+                    fadeGameScreen();
                 } else if (isAtCashier() && !allItemsAreGreen() && timer !== 0) {
                     showNotification("The items in your shopping cart are incorrect");
                 } else if (!isAtCashier() && allItemsAreGreen() && timer !== 0) {
@@ -1219,7 +1127,7 @@ window.addEventListener('keydown', ({ key }) => {
                 if (!gameStarted) {
                     startGame();
                     gameStarted = true;
-                    decreaseTimer(); // Start the timer when the game starts
+                    decreaseTimer();
                 } else if (!isTimerPaused) {
                     isTimerPaused = true;
                     pauseGame();
@@ -1227,11 +1135,11 @@ window.addEventListener('keydown', ({ key }) => {
                     showInstructions();
                 } else {
                     isTimerPaused = false;
-                    decreaseTimer();
+                    resumeTimer();
                     resumeGame();
-                }
+                };
                 break;
-    }
+    };
 });
 
 window.addEventListener('keyup', ({ key }) => {
@@ -1248,26 +1156,16 @@ window.addEventListener('keyup', ({ key }) => {
         case 'd':
             sam.velocity.x = 0;
             break;  
-
-    }
+    };
 });
 
 function resetMap() {
-    // Clear existing game objects and recreate the map
     boundaries.length = 0;
     food.length = 0;
     storeItems.length = 0;
     goBacks.length = 0;
-
-    // Call the function to recreate the map
     createMap();
-}
-
-let isGameRunning = false;
-
-const playAgainButton = document.querySelector('#play-again');
-
-
+};
 
 playAgainButton.addEventListener('click', () => {
     inventory.length = 0; // Clear inventory
@@ -1276,41 +1174,63 @@ playAgainButton.addEventListener('click', () => {
     sam.position.y = Boundary.height + Boundary.height - 15;
     sam.velocity.x = 0;
     sam.velocity.y = 0;
-
     resetMap();
-
     updateInventoryDisplay();
-
- 
     document.querySelector('#gobacks-display').innerHTML = '';
-
     document.querySelector('#timer').style.color = 'black';
     document.querySelector('#timer').style.borderColor = 'black';
     document.querySelector('#timer').classList.remove('pulsate-bck');
-
-    // Hide message and play button
-    document.querySelector('#message').style.display = 'none';
-    document.querySelector('#play-button').style.display = 'none';
-
-    // Reset the canvas class to remove fade-out effect
-    document.querySelector('canvas').classList.remove('fade-out');
-    document.querySelector('#side').classList.remove('fade-out');
+    hidePlayAgain();
+    removeFadeGameScreen();
+    showGameScreen();
+    updateBestTimeDisplay();
 });
-
 
 function updateBestTimeDisplay() {
     const bestTime = localStorage.getItem('bestTime');
-
     if (bestTime) {
         document.getElementById('best-time').textContent = `Best Time: ${bestTime} seconds`;
     } else {
         document.getElementById('best-time').textContent = 'Best Time: N/A';
-    }
-}
+    };
+};
 
-document.getElementById('play-again').addEventListener('click', () => {
-    updateBestTimeDisplay();
-});
+function animate() {
+    requestAnimationFrame(animate);
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    boundaries.forEach((boundary) => {
+        boundary.draw();
+        if (circleCollidesWithRectangle({
+            circle: sam,
+            rectangle: boundary,
+        })) {
+            sam.velocity.x = 0;
+            sam.velocity.y = 0;
+        };
+    });
+    for (let i = 0; i < food.length; i++) {
+        const foodItem = food[i];
+        foodItem.update();
+        foodItem.draw();
+        if (circleCollidesWithRectangle({ circle: sam, rectangle: foodItem })) {
+            c.strokeStyle = 'red';
+            c.lineWidth = 2;
+            c.strokeRect(
+                foodItem.position.x,
+                foodItem.position.y,
+                foodItem.width,
+                foodItem.height
+            );
+            document.getElementById('highlighted-food').innerText = foodItem.type;
+        };
+    };
+    for (let i = 0; i < storeItems.length; i++) {
+        const storeStuff = storeItems[i];
+        storeStuff.update();
+        storeStuff.draw();
+    };
+    sam.update();
+    isAtCashier();
+};
 
 animate();
-console.log(inventory);
