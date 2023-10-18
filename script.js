@@ -166,17 +166,17 @@ const map = [
     ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'CC', 'CC', '  ', '  ', '  ', '  ', 'CC', 'CC', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
     ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
     ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
-    ['ll', '01', '||', '||', '12', '23', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '02', '||', '||', '13', '24', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '03', '||', '||', '14', '25', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '04', '||', '||', '15', '26', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '05', '||', '||', '16', '27', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '06', '||', '||', '17', '28', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '07', '||', '||', '18', '29', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '08', '||', '||', '19', '30', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '09', '||', '||', '20', '31', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '10', '||', '||', '21', '32', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
-    ['ll', '11', '||', '||', '22', '33', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '01', '||', '||', '12', '23', '||', '||', '34', '45', '||', '||', '56', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '02', '||', '||', '13', '24', '||', '||', '35', '46', '||', '||', '57', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '03', '||', '||', '14', '25', '||', '||', '36', '47', '||', '||', '58', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '04', '||', '||', '15', '26', '||', '||', '37', '48', '||', '||', '59', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '05', '||', '||', '16', '27', '||', '||', '38', '49', '||', '||', '60', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '06', '||', '||', '17', '28', '||', '||', '39', '50', '||', '||', '61', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '07', '||', '||', '18', '29', '||', '||', '40', '51', '||', '||', '62', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '08', '||', '||', '19', '30', '||', '||', '41', '52', '||', '||', '63', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '09', '||', '||', '20', '31', '||', '||', '42', '53', '||', '||', '64', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '10', '||', '||', '21', '32', '||', '||', '43', '54', '||', '||', '65', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
+    ['ll', '11', '||', '||', '22', '33', '||', '||', '44', '55', '||', '||', '66', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', '  ', '||', '||', '  ', 'rr'],
     ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
     ['ll', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', '  ', 'rr'],
     ['ll', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', '==', 'rr'],
@@ -344,114 +344,6 @@ function createMap() {
                         })
                     )
                     break;
-                // case 'mi':
-                //     food.push(
-                //         new Food({
-                //             type: 'Milk',
-                //             position: {
-                //                 x: Boundary.width * j,
-                //                 y: Boundary.height * i + 25,
-                //             },
-                //             image: createImage('./imgFood32/milk.png'),
-                //         })
-                //     )
-                //     break;
-                // case 'eg':
-                //     food.push(
-                //         new Food({
-                //             type: 'Eggs',
-                //             position: {
-                //                 x: Boundary.width * j,
-                //                 y: Boundary.height * i + 25,
-                //             },
-                //             image: createImage('./imgFood32/eggs.png'),
-                //         })
-                //     )
-                //     break;     
-                // case 'ch':
-                //     food.push(
-                //         new Food({
-                //             type: 'Chips',
-                //             position: {
-                //                 x: Boundary.width * j - 25,
-                //                 y: Boundary.height * i,
-                //             },
-                //             image: createImage('./imgFood32/chips.png'),
-                //         })
-                //     )
-                //     break; 
-                // case 'ja':
-                //     food.push(
-                //         new Food({
-                //             type: 'Jam',
-                //             position: {
-                //                 x: Boundary.width * j - 25,
-                //                 y: Boundary.height * i,
-                //             },
-                //             image: createImage('./imgFood32/jam.png'),
-                //         })
-                //     )
-                //     break; 
-                // case 'cz':
-                //     food.push(
-                //         new Food({
-                //             type: 'Cheese',
-                //             position: {
-                //                 x: Boundary.width * j,
-                //                 y: Boundary.height * i + 30,
-                //             },
-                //             image: createImage('./imgFood32/cheese.png'),
-                //         })
-                //     )
-                //     break; 
-                // case 'ba':
-                //     food.push(
-                //         new Food({
-                //             type: 'Bananas',
-                //             position: {
-                //                 x: Boundary.width * j,
-                //                 y: Boundary.height * i + 30,
-                //             },
-                //             image: createImage('./imgFood32/bananas.png'),
-                //         })
-                //     )
-                //     break; 
-                // case 'ck':
-                //     food.push(
-                //         new Food({
-                //             type: 'Chicken',
-                //             position: {
-                //                 x: Boundary.width * j,
-                //                 y: Boundary.height * i - 25,
-                //             },
-                //             image: createImage('./imgFood32/chicken.png'),
-                //         })
-                //     )
-                //     break; 
-                // case 'br':
-                //     food.push(
-                //         new Food({
-                //             type: 'Bread',
-                //             position: {
-                //                 x: Boundary.width * j - 25,
-                //                 y: Boundary.height * i,
-                //             },
-                //             image: createImage('./imgFood32/bread.png'),
-                //         })
-                //     )
-                //     break; 
-                // case 'ho':
-                //     food.push(
-                //         new Food({
-                //             type: 'Hot Dog',
-                //             position: {
-                //                 x: Boundary.width * j + 25,
-                //                 y: Boundary.height * i,
-                //             },
-                //             image: createImage('./imgFood32/hot dog.png'),
-                //         })
-                //     )
-                //     break; 
                 case '01':
                     food.push(
                         new Food({
@@ -743,12 +635,12 @@ function createMap() {
                 case '25':
                     food.push(
                         new Food({
-                            type: 'Scissors',
+                            type: 'Kitchen Scissors',
                             position: {
                                 x: Boundary.width * j + 25,
                                 y: Boundary.height * i,
                             },
-                            image: createImage('./assets/img/food32/scissors.png'),
+                            image: createImage('./assets/img/food32/kitchen-scissors.png'),
                         })
                     )
                     break; 
@@ -848,35 +740,426 @@ function createMap() {
                         })
                     )
                     break;
+                case '34':
+                    food.push(
+                        new Food({
+                            type: 'Ball Pen',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/ball-pen.png'),
+                        })
+                    )
+                    break;
+                case '35':
+                    food.push(
+                        new Food({
+                            type: 'Batteries',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/batteries.png'),
+                        })
+                    )
+                    break;
+                case '36':
+                    food.push(
+                        new Food({
+                            type: 'Glue Stick',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/glue-stick.png'),
+                        })
+                    )
+                    break;
+                case '37':
+                    food.push(
+                        new Food({
+                            type: 'Elmers Glue',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/elmers-glue.png'),
+                        })
+                    )
+                    break;
+                case '38':
+                    food.push(
+                        new Food({
+                            type: 'Light Bulb',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/light-bulb.png'),
+                        })
+                    )
+                    break;
+                case '39':
+                    food.push(
+                        new Food({
+                            type: 'Pencil Box',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/pencil-box.png'),
+                        })
+                    )
+                    break;
+                case '40':
+                    food.push(
+                        new Food({
+                            type: 'Power Strip',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/power-strip.png'),
+                        })
+                    )
+                    break;
+                case '41':
+                    food.push(
+                        new Food({
+                            type: 'School Scissors',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/school-scissors.png'),
+                        })
+                    )
+                    break;
+                case '42':
+                    food.push(
+                        new Food({
+                            type: 'Eraser',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/eraser.png'),
+                        })
+                    )
+                    break;
+                case '43':
+                    food.push(
+                        new Food({
+                            type: 'Rubber Duck',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/rubber-duck.png'),
+                        })
+                    )
+                    break;
+                case '44':
+                    food.push(
+                        new Food({
+                            type: 'Rubber Ducktopus',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/rubber-ducktopus.png'),
+                        })
+                    )
+                    break;
+                case '45':
+                    food.push(
+                        new Food({
+                            type: 'Sunscreen',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/sunscreen.png'),
+                        })
+                    )
+                    break;
+                case '46':
+                    food.push(
+                        new Food({
+                            type: 'Body Lotion',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/body-lotion.png'),
+                        })
+                    )
+                    break;
+                case '47':
+                    food.push(
+                        new Food({
+                            type: 'Hand Sanitizer',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/hand-sanitizer.png'),
+                        })
+                    )
+                    break;
+                case '48':
+                    food.push(
+                        new Food({
+                            type: 'Shampoo',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/shampoo.png'),
+                        })
+                    )
+                    break;
+                case '49':
+                    food.push(
+                        new Food({
+                            type: 'Soap',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/soap.png'),
+                        })
+                    )
+                    break;
+                case '50':
+                    food.push(
+                        new Food({
+                            type: 'Toothpaste',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/toothpaste.png'),
+                        })
+                    )
+                    break;
+                case '51':
+                    food.push(
+                        new Food({
+                            type: 'Toothbrush',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/toothbrush.png'),
+                        })
+                    )
+                    break;
+                case '52':
+                    food.push(
+                        new Food({
+                            type: 'Toothbrush Set',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/toothbrush-set.png'),
+                        })
+                    )
+                    break;
+                case '53':
+                    food.push(
+                        new Food({
+                            type: 'Bandaids',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/bandaids.png'),
+                        })
+                    )
+                    break;
+                case '54':
+                    food.push(
+                        new Food({
+                            type: 'Wet Wipes',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/wet-wipes.png'),
+                        })
+                    )
+                    break;
+                case '55':
+                    food.push(
+                        new Food({
+                            type: 'Bathroom Cleaner',
+                            position: {
+                                x: Boundary.width * j + 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/bathroom-cleaner.png'),
+                        })
+                    )
+                    break;
+                case '56':
+                    food.push(
+                        new Food({
+                            type: 'Vanilla Ice Cream',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/vanilla-ice-cream.png'),
+                        })
+                    )
+                    break;
+                case '57':
+                    food.push(
+                        new Food({
+                            type: 'Strawberry Ice Cream',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/strawberry-ice-cream.png'),
+                        })
+                    )
+                    break;
+                case '58':
+                    food.push(
+                        new Food({
+                            type: 'Bowl of Ice Cream',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/bowl-of-ice-cream.png'),
+                        })
+                    )
+                    break;
+                case '59':
+                    food.push(
+                        new Food({
+                            type: 'Gallon of Milk',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/gallon-of-milk.png'),
+                        })
+                    )
+                    break;
+                case '60':
+                    food.push(
+                        new Food({
+                            type: 'Carton of Milk',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/carton-of-milk.png'),
+                        })
+                    )
+                    break;
+                case '61':
+                    food.push(
+                        new Food({
+                            type: 'Yogurt',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/yogurt.png'),
+                        })
+                    )
+                    break;
+                case '62':
+                    food.push(
+                        new Food({
+                            type: 'Cheese Wheel',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/cheese-wheel.png'),
+                        })
+                    )
+                    break;
+                case '63':
+                    food.push(
+                        new Food({
+                            type: 'Cheese Slice',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/cheese-slice.png'),
+                        })
+                    )
+                    break;
+                case '64':
+                    food.push(
+                        new Food({
+                            type: 'American Cheese',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/american-cheese.png'),
+                        })
+                    )
+                    break;
+                case '65':
+                    food.push(
+                        new Food({
+                            type: 'White Eggs',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/white-eggs.png'),
+                        })
+                    )
+                    break;
+                case '66':
+                    food.push(
+                        new Food({
+                            type: 'Brown Eggs',
+                            position: {
+                                x: Boundary.width * j - 25,
+                                y: Boundary.height * i,
+                            },
+                            image: createImage('./assets/img/food32/brown-eggs.png'),
+                        })
+                    )
+                    break;
         }
         })
     });
 
     const totalFoodItems = food.length;
 
-    // Clear existing shopping list
     shoppingList = [];
 
-    // Ensure shopping list has 10 unique items
     const numItemsInShoppingList = 10;
     const selectedFoodIndices = [];
 
     while (shoppingList.length < numItemsInShoppingList) {
         const randomFoodIndex = Math.floor(Math.random() * totalFoodItems);
 
-        // Check if this food item is already in the shopping list
         if (!selectedFoodIndices.includes(randomFoodIndex)) {
             selectedFoodIndices.push(randomFoodIndex);
 
             const randomFood = food[randomFoodIndex].type;
 
-            // Generate a random needed amount between 1 and 3
             const randomNeededAmount = Math.floor(Math.random() * 2) + 1;
 
-            // Add the random food item to the shopping list
             shoppingList.push({ name: randomFood, neededAmount: randomNeededAmount, amount: 0 });
-        }
-    }
+        };
+    };
 };
 
 createMap();
@@ -898,6 +1181,9 @@ function resumeGame() {
 };
 
 function decreaseTimer() {
+    if (!gameStarted) {
+        return;
+    };
     if (!isTimerPaused && totalSeconds > 0) {
         setTimeout(decreaseTimer, 1000);
         totalSeconds--;
@@ -907,7 +1193,6 @@ function decreaseTimer() {
         let secondsDisplay = seconds < 10 ? "0" + seconds : seconds;
         document.querySelector('#timer').innerHTML = `${minutes}:${secondsDisplay}`;
     };
-
     if (totalSeconds > 10) {
         document.querySelector('#timer').style.color = 'black';
     } else {
@@ -915,7 +1200,6 @@ function decreaseTimer() {
         document.querySelector('#timer').style.borderColor = 'rgb(172, 37, 55)';
         document.querySelector('#timer').setAttribute('class', 'pulsate-bck');
     };
-
     if (totalSeconds === 0 && !isAtCashier() && !allItemsAreGreen()) {
         fadeGameScreen();
         showPlayAgain();
@@ -939,8 +1223,6 @@ function circleCollidesWithRectangle({ circle,rectangle,}) {
             circle.position.y + circle.radius + circle.velocity.y >= rectangle.position.y &&
             circle.position.x - circle.radius + circle.velocity.x <= rectangle.position.x + rectangle.width)
 };
-
-
 
 function updateInventoryDisplay() {
     shoppingList.forEach(item => (item.amount = 0));
@@ -993,13 +1275,11 @@ updateInventoryDisplay();
 function updateGoBacksDisplay() {
     const gobacksDisplay = document.getElementById('gobacks-display');
     gobacksDisplay.innerHTML = '';
-    const numItemsToShow = Math.min(goBacks.length, 5);
-    for (let i = goBacks.length - numItemsToShow; i < goBacks.length; i++) {
+
+    for (let i = goBacks.length - 1; i >= 0; i--) {
         const item = goBacks[i];
         const img = document.createElement('img');
         img.src = `./assets/img/food32/${item.toLowerCase().split(' ').join('-')}.png`;
-        console.log(img.src);
-        // img.alt = item;
         img.addEventListener('click', () => {
             goBacks.splice(goBacks.indexOf(item), 1);
             updateGoBacksDisplay();
@@ -1089,11 +1369,17 @@ window.addEventListener('keydown', ({ key }) => {
                 };
                 isRespawning = true;
                 setTimeout(() => {
-                    food.push(new Food({
-                        type: collectedItem,
-                        position: collectedFoodPosition,
-                        image: createImage(`./assets/img/food32/${collectedItem.toLowerCase().split(' ').join('-')}.png`),
-                    }));
+                    if (collectedItem) {
+                        food.push(new Food({
+                            type: collectedItem,
+                            position: collectedFoodPosition,
+                            image: createImage(`./assets/img/food32/${collectedItem.toLowerCase().split(' ').join('-')}.png`),
+                        }));
+                        const respawnedFood = food.find(item => item.type === collectedItem);
+                        if (respawnedFood) {
+                            respawnedFood.toggleEligibilityForPickup();
+                        }
+                    }
                     isRespawning = false;
                 }, 200);
             };
@@ -1117,6 +1403,7 @@ window.addEventListener('keydown', ({ key }) => {
                     showPlayAgain();
                     document.querySelector('#message').innerHTML = 'Thank you for shopping!';
                     fadeGameScreen();
+                    gameStarted = false;
                 } else if (isAtCashier() && !allItemsAreGreen() && timer !== 0) {
                     showNotification("The items in your shopping cart are incorrect");
                 } else if (!isAtCashier() && allItemsAreGreen() && timer !== 0) {
@@ -1168,12 +1455,14 @@ function resetMap() {
 };
 
 playAgainButton.addEventListener('click', () => {
-    inventory.length = 0; // Clear inventory
-    totalSeconds = 100; // Reset timer to 300 seconds
-    sam.position.x = Boundary.width + Boundary.width * 13.5; // Reset player position
+    inventory.length = 0; 
+    totalSeconds = 100; 
+    sam.position.x = Boundary.width + Boundary.width * 13.5; 
     sam.position.y = Boundary.height + Boundary.height - 15;
     sam.velocity.x = 0;
     sam.velocity.y = 0;
+    isTimerPaused = false;
+    gameStarted = true;
     resetMap();
     updateInventoryDisplay();
     document.querySelector('#gobacks-display').innerHTML = '';
@@ -1182,8 +1471,8 @@ playAgainButton.addEventListener('click', () => {
     document.querySelector('#timer').classList.remove('pulsate-bck');
     hidePlayAgain();
     removeFadeGameScreen();
-    showGameScreen();
     updateBestTimeDisplay();
+    decreaseTimer();
 });
 
 function updateBestTimeDisplay() {
